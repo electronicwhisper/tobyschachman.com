@@ -2,7 +2,7 @@
 <html>
 <head>
   <title>Toby Schachman | Portfolio</title>
-  <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.3.0/bootstrap.min.css" />
+  <link rel="stylesheet" href="bootstrap.min.css" />
   <style type="text/css">
   body {
     padding-top: 17px;
@@ -21,7 +21,7 @@
   p {
     margin-bottom: 18px;
   }
-  
+
   img, iframe {
 
     -webkit-box-shadow:  0px 1px 2px 1px rgba(0, 0, 0, 0.2);
@@ -29,11 +29,11 @@
     box-shadow:  0px 1px 2px 1px rgba(0, 0, 0, 0.2);
 
   }
-  
+
   .more {
     display: none;
   }
-  
+
   .topbar a {
     -webkit-transition: background-color 0.2s ease-in-out;
     -moz-transition: background-color 0.2s ease-in-out;
@@ -41,7 +41,7 @@
     -ms-transition: background-color 0.2s ease-in-out;
     transition: background-color 0.2s ease-in-out;
   }
-  
+
   .active a[cat=web], a[cat=web]:hover {
     color: #09f ! important;
   }
@@ -57,7 +57,7 @@
   </style>
   <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
   <script>
-    
+
     function fixVimeo() {
       // $("iframe:visible").each(function (i, iframe) {
       //   iframe = $(iframe);
@@ -67,18 +67,18 @@
       //   }
       // });
     }
-    
+
     $(function () {
       $("iframe:visible").data("vimeoFixed", true);
-      
+
       $(".show-more").click(function() {
         // show the .more content
         $(this).closest("section").find(".more").slideDown(350, fixVimeo);
-        
+
         // hide show more link
         $(this).fadeOut(350);
       });
-      
+
       $("a[cat]").click(function () {
         if ($(this).attr("cat")) showCat($(this).attr("cat"));
         else showAll();
@@ -86,12 +86,12 @@
         $(this).closest("li").addClass("active");
       });
     });
-    
+
     function showSection(section) {
       // collapse it first
       section.find(".more").hide();
       section.find(".show-more").show();
-      
+
       // show it (with animation)
       section.slideDown(700, fixVimeo);
     }
@@ -99,7 +99,7 @@
       // hide it (with animation)
       section.slideUp(700);
     }
-    
+
     function showCat(name) {
       showSection($(".cat-"+name).filter(function () {
         return $(this).css("display") === "none";
@@ -114,7 +114,7 @@
   </script>
 </head>
 <body>
-  
+
   <div class="topbar" >
     <div class="topbar-inner">
       <div class="container">
@@ -137,9 +137,9 @@
       </div>
     </div>
   </div>
-  
+
   <div class="container">
-    
+
     <section class="cat-web">
       <div class="page-header">
         <h1>Recursive Drawing <small class="date">May 2011</small></h1>
@@ -169,7 +169,7 @@
         </div>
       </div>
     </section>
-    
+
     <section class="cat-physical">
       <div class="page-header">
         <h1>Sphere of Water <small class="date">January 2012</small></h1>
@@ -186,7 +186,7 @@
         </div>
       </div>
     </section>
-    
+
     <section class="cat-physical cat-web">
       <div class="page-header">
         <h1>Haiku Wifi <small class="date">January 2012</small></h1>
@@ -249,8 +249,8 @@
         </div>
       </div>
     </section>
-    
-    
+
+
     <section class="cat-video cat-physical">
       <div class="page-header">
         <h1>Transpiration <small class="date">December 2011</small></h1>
@@ -282,8 +282,8 @@
         </div>
       </div>
     </section>
-    
-    
+
+
     <section class="cat-video cat-sound cat-physical">
       <div class="page-header">
         <h1>Gold Noise <small class="date">May 2011</small></h1>
@@ -328,8 +328,8 @@
         </div>
       </div>
     </section>
-    
-    
+
+
     <section class="cat-video cat-physical">
       <div class="page-header">
         <h1>Time Travelers <small class="date">March 2011</small></h1>
@@ -363,7 +363,7 @@
         </div>
       </div>
     </section>
-    
+
     <section class="cat-physical">
       <div class="page-header">
         <h1>Infinite Sympathy <small class="date">March 2011</small></h1>
@@ -390,8 +390,8 @@
         </div>
       </div>
     </section>
-    
-    
+
+
     <section class="cat-video cat-physical">
       <div class="page-header">
         <h1>Digital Kaleidoscope <small class="date">December 2010</small></h1>
@@ -417,10 +417,10 @@
           </div>
         </div>
       </div>
-      
+
     </section>
-    
-    
+
+
     <section class="cat-video">
       <div class="page-header">
         <h1>Advanced Enterprise Research Office <small class="date">January 2010</small></h1>
@@ -448,10 +448,10 @@
           </div>
         </div>
       </div>
-      
+
     </section>
-    
-    
+
+
     <section class="cat-web">
       <div class="page-header">
         <h1>Earl Research <small class="date">2006 - 2009</small></h1>
@@ -466,8 +466,8 @@
         </div>
       </div>
     </section>
-    
-    
+
+
     <!-- <section class="cat-web">
       <div class="page-header">
         <h1>FilmsFolded <small class="date">2004 - Present</small></h1>
@@ -484,8 +484,8 @@
         </div>
       </div>
     </section> -->
-    
-    
+
+
     <section class="cat-web">
       <div class="page-header">
         <h1>SubProfile <small class="date">2001 - 2003</small></h1>
@@ -502,9 +502,9 @@
         </div>
       </div>
     </section>
-    
-    
-    
+
+
+
     <section class="cat-about cat-web cat-video cat-sound cat-physical">
       <div class="page-header">
         <h1 style="color: #999">About Me</h1>
@@ -527,8 +527,8 @@
         </div>
       </div>
     </section>
-    
+
   </div>
-  
+
 </body>
 </html>
