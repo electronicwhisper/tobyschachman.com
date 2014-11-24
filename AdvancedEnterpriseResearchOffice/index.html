@@ -1,0 +1,56 @@
+<html>
+<head>
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<link href="http://code.ionicframework.com/ionicons/1.5.2/css/ionicons.min.css" rel="stylesheet" type="text/css" />
+<link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,700,200italic,300italic,400italic,700italic" rel="stylesheet" type="text/css" />
+<link rel="icon" type="image/png" href="/assets/favicon.png">
+
+<link href="/assets/page.css" rel="stylesheet" type="text/css" />
+
+<title>Advanced Enterprise Research Office</title>
+</head>
+
+<body class="ThemeDark">
+
+<div class="VideoEmbed" data-src="http://player.vimeo.com/video/9119796?autoplay=1" data-aspect="1.318"></div>
+
+<div class="Centered">
+
+<div class="Title">Advanced Enterprise Research Office</div>
+<div class="Date">January 31st, 2011</div>
+
+<p><a href="http://bnewbold.net">Bryan Newbold</a> and I produced Advanced Enterprise Research Office for the 2010 <a href="http://www.globalgamejam.org/">Global Game Jam</a>, a worldwide, 48-hour game making marathon. We were kindly hosted by the <a href="http://gamecenter.nyu.edu/">NYU Game Center</a> and <a href="http://itp.nyu.edu/itp/">ITP</a> at Tisch.</p>
+
+<p>The theme for the 2010 jam was <em>deception</em>. We decided to make a 3D game where the space was constantly changing due to <a href="http://www.urbandictionary.com/define.php?term=datamosh">datamoshing</a>.</p>
+
+<p>Datamoshing is an effect that exploits video compression algorithms. In general, video compression algorithms will encode the entire image of the first frame of a video. Then, each subsequent frame will be encoded as its difference from the previous frame. The datamoshing effect is created by applying these frame difference instructions to an image that is <em>not</em> the original first frame.</p>
+
+<p>We spent the initial night of the jam brainstorming the concept, creating mockup videos, and then piecing together the tools to create the effect. At the 12 hour mark, we were convinced that we would not be able to pull it off. But after an inspirational break, we gave one final push and had a prototype done at 7AM Saturday.</p>
+
+<div class="VideoEmbed" data-src="http://player.vimeo.com/video/9102526" data-aspect="1.351"></div>
+
+<p>Advanced Enterprise Research Office is frankensteined from the <a href="http://ioquake3.org/">ioquake3</a> open-source 3D game engine and <a href="http://en.wikipedia.org/wiki/Quartz_Composer">Quartz Composer</a> with <a href="http://kriss.cx/tom/datamosh/">Tom Butterworth&rsquo;s datamosh</a> plugin, along with an ungodly amount of shell scripts and middleware to hold everything together.</p>
+
+<!-- <p><img src="qcscreen.png" /></p> -->
+
+<p>On Saturday through Sunday morning, we tweaked the system to create game mechanics that worked well with the datamoshing effect. Because the effect is most pronounced when only some of the pixels on the screen are changing, we decided to not let the player get close to walls. So on contact with a wall, the player is teleported to a new location in the space. The animation of this teleport is covered by the system. That is, the system intentionally drops frames while the teleport is happening so that when the player moves within the new space, this movement is datamoshed onto the image of the old space.</p>
+
+<p>We mapped and textured two levels to play the game. We also created some &ldquo;powerups&rdquo; which interacted with the datamoshing effect.</p>
+
+<p>Like most of the participants, we did not achieve all of the features we would have liked but were quite pleased with how far we got in 48 hours. We obviously had a ton of fun creating and playing our game. The energy among all the participants was fantastic and we encourage everybody to participate in next year&rsquo;s game jam, no matter what your skill set!</p>
+
+</div>
+
+<div class="Footer">
+<a href="/">Toby Schachman</a>
+<a href="mailto:tqs@alum.mit.edu"><i class="icon ion-android-mail"></i> tqs@alum.mit.edu</a>
+<a href="https://twitter.com/mandy3284"><i class="icon ion-social-twitter"></i> mandy3284</a>
+</div>
+
+<script src="/assets/page.js"></script>
+
+</body>
+</html>

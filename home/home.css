@@ -1,0 +1,142 @@
+html,
+body {
+  margin: 0;
+}
+body {
+  font-size: 20px;
+  line-height: 1.5;
+  background-color: #eee;
+  color: #222;
+  font-weight: 300;
+}
+.Bio {
+  color: #666;
+  font-weight: 200;
+}
+.Bio p {
+  margin: 1em 0;
+}
+.Bio a {
+  color: #999;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+.Cards {
+  margin: 40px;
+}
+.Card {
+  width: 300px;
+  margin-bottom: 40px;
+  position: relative;
+}
+.CardImage {
+  width: 300px;
+  height: 300px;
+  overflow: hidden;
+}
+.CardImage video,
+.CardImage img {
+  width: 100%;
+  height: 100%;
+}
+.CardTitle {
+  font-size: 1.2em;
+}
+.ComingSoon {
+  position: absolute;
+  padding: 0 0.4em;
+  font-size: 0.8em;
+  background-color: rgba(0,0,0,0.05);
+}
+.ComingSoon:before {
+  content: "coming soon...";
+}
+.AnimatedSpinningBallBackground {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+}
+.AnimatedSpinningBall {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -9px;
+  margin-top: -9px;
+}
+.AnimatedSpinningBall {
+  width: 18px;
+  height: 18px;
+  background-image: url("spinningball.png");
+  -webkit-animation: play 0.4s steps(6) infinite;
+  -moz-animation: play 0.4s steps(6) infinite;
+  -ms-animation: play 0.4s steps(6) infinite;
+  -o-animation: play 0.4s steps(6) infinite;
+  animation: play 0.4s steps(6) infinite;
+}
+@-webkit-keyframes play {
+  from {
+    background-position: 0px 0px;
+  }
+  to {
+    background-position: 0px -108px;
+  }
+}
+@-moz-keyframes play {
+  from {
+    background-position: 0px 0px;
+  }
+  to {
+    background-position: 0px -108px;
+  }
+}
+@-ms-keyframes play {
+  from {
+    background-position: 0px 0px;
+  }
+  to {
+    background-position: 0px -108px;
+  }
+}
+@-o-keyframes play {
+  from {
+    background-position: 0px 0px;
+  }
+  to {
+    background-position: 0px -108px;
+  }
+}
+@-moz-keyframes play {
+  from {
+    background-position: 0px 0px;
+  }
+  to {
+    background-position: 0px -108px;
+  }
+}
+@-webkit-keyframes play {
+  from {
+    background-position: 0px 0px;
+  }
+  to {
+    background-position: 0px -108px;
+  }
+}
+@-o-keyframes play {
+  from {
+    background-position: 0px 0px;
+  }
+  to {
+    background-position: 0px -108px;
+  }
+}
+@keyframes play {
+  from {
+    background-position: 0px 0px;
+  }
+  to {
+    background-position: 0px -108px;
+  }
+}

@@ -1,0 +1,135 @@
+html,
+body {
+  margin: 0;
+  height: 100%;
+}
+body {
+  line-height: 1.5;
+  font-size: 16px;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+.FullScreenImage {
+  display: block;
+  margin: auto;
+  max-width: 100%;
+  max-height: 100%;
+}
+.Title {
+  text-align: center;
+  font-weight: bold;
+  font-size: 3rem;
+}
+@media (max-width: 400px) {
+  .Title {
+    font-size: 2rem;
+  }
+}
+.Date {
+  text-align: center;
+  font-style: italic;
+  margin-bottom: 3rem;
+}
+p,
+h1,
+h2,
+h3 {
+  margin: 1.5rem 0;
+}
+h1,
+h2,
+h3 {
+  font-weight: bold;
+}
+h1 {
+  font-size: 2rem;
+  margin-top: 3rem;
+}
+h2 {
+  font-size: 1.5rem;
+}
+h3 {
+  font-size: 1rem;
+}
+.Centered {
+  max-width: 40rem;
+  margin: 3rem auto;
+  padding: 0 1.5rem;
+}
+blockquote {
+  margin: 0 3rem;
+  font-style: italic;
+}
+.VideoEmbed {
+  text-align: center;
+}
+.Footer {
+  text-align: center;
+  padding: 1rem;
+}
+.Footer a {
+  white-space: nowrap;
+  color: inherit;
+  margin: 0 1rem;
+}
+@media (max-width: 500px) {
+  .Footer a {
+    display: block;
+  }
+}
+.ion-android-mail {
+  font-size: 0.8em;
+  margin-right: 0.125em;
+}
+.ion-social-twitter {
+  position: relative;
+  top: 0.125em;
+  margin-left: -0.0625em;
+}
+.ThemeDark {
+  background-color: #000;
+  color: rgba(255,255,255,0.7);
+  font-weight: 300;
+}
+.ThemeDark a {
+  font-weight: 400;
+}
+.ThemeLight {
+  background-color: #fff;
+  color: rgba(0,0,0,0.7);
+  font-weight: 400;
+}
+.ThemeDark .Title,
+.ThemeDark h1,
+.ThemeDark h2,
+.ThemeDark h3 {
+  color: rgba(255,255,255,0.95);
+}
+.ThemeDark blockquote,
+.ThemeDark .Footer,
+.ThemeDark .Date {
+  color: rgba(255,255,255,0.45);
+}
+.ThemeDark h1 {
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.ThemeLight .Title,
+.ThemeLight h1,
+.ThemeLight h2,
+.ThemeLight h3 {
+  color: rgba(0,0,0,0.95);
+}
+.ThemeLight blockquote,
+.ThemeLight .Footer,
+.ThemeLight .Date {
+  color: rgba(0,0,0,0.45);
+}
+.ThemeLight h1 {
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+a {
+  color: #8072ff;
+  text-decoration: none;
+}
+a:hover {
+  color: #8072ff !important;
+}

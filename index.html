@@ -1,534 +1,182 @@
-<!DOCTYPE html>
 <html>
 <head>
-  <title>Toby Schachman | Portfolio</title>
-  <link rel="stylesheet" href="bootstrap.min.css" />
-  <style type="text/css">
-  body {
-    padding-top: 17px;
-    padding-bottom: 80px;
-  }
-  section {
-    padding-top: 63px;
-  }
-  .row {
-    padding-bottom: 17px;
-  }
-  .date {
-    float:right;
-    padding-top: 13px;
-  }
-  p {
-    margin-bottom: 18px;
-  }
 
-  img, iframe {
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    -webkit-box-shadow:  0px 1px 2px 1px rgba(0, 0, 0, 0.2);
-    -moz-box-shadow:  0px 1px 2px 1px rgba(0, 0, 0, 0.2);
-    box-shadow:  0px 1px 2px 1px rgba(0, 0, 0, 0.2);
+<link href="http://code.ionicframework.com/ionicons/1.5.2/css/ionicons.min.css" rel="stylesheet" type="text/css" />
+<link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,700,200italic,300italic,400italic,700italic" rel="stylesheet" type="text/css" />
+<link rel="icon" type="image/png" href="assets/favicon.png">
 
-  }
+<link href="assets/page.css" rel="stylesheet" type="text/css" />
+<link href="home/home.css" rel="stylesheet" type="text/css">
 
-  .more {
-    display: none;
-  }
-
-  .topbar a {
-    -webkit-transition: background-color 0.2s ease-in-out;
-    -moz-transition: background-color 0.2s ease-in-out;
-    -o-transition: background-color 0.2s ease-in-out;
-    -ms-transition: background-color 0.2s ease-in-out;
-    transition: background-color 0.2s ease-in-out;
-  }
-
-  .active a[cat=web], a[cat=web]:hover {
-    color: #09f ! important;
-  }
-  .active a[cat=video], a[cat=video]:hover {
-    color: #f00 ! important;
-  }
-  .active a[cat=sound], a[cat=sound]:hover {
-    color: #6f0 ! important;
-  }
-  .active a[cat=physical], a[cat=physical]:hover {
-    color: #ff0 ! important;
-  }
-  </style>
-  <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
-  <script>
-
-    function fixVimeo() {
-      // $("iframe:visible").each(function (i, iframe) {
-      //   iframe = $(iframe);
-      //   if (!iframe.data("vimeoFixed")) {
-      //     iframe.attr("src", iframe.attr("src"));
-      //     iframe.data("vimeoFixed", true);
-      //   }
-      // });
-    }
-
-    $(function () {
-      $("iframe:visible").data("vimeoFixed", true);
-
-      $(".show-more").click(function() {
-        // show the .more content
-        $(this).closest("section").find(".more").slideDown(350, fixVimeo);
-
-        // hide show more link
-        $(this).fadeOut(350);
-      });
-
-      $("a[cat]").click(function () {
-        if ($(this).attr("cat")) showCat($(this).attr("cat"));
-        else showAll();
-        $("ul.nav li").removeClass("active");
-        $(this).closest("li").addClass("active");
-      });
-    });
-
-    function showSection(section) {
-      // collapse it first
-      section.find(".more").hide();
-      section.find(".show-more").show();
-
-      // show it (with animation)
-      section.slideDown(700, fixVimeo);
-    }
-    function hideSection(section) {
-      // hide it (with animation)
-      section.slideUp(700);
-    }
-
-    function showCat(name) {
-      showSection($(".cat-"+name).filter(function () {
-        return $(this).css("display") === "none";
-      }));
-      hideSection($("section").filter(function () {
-        return !$(this).hasClass("cat-"+name);
-      }));
-    }
-    function showAll() {
-      showSection($("section"));
-    }
-  </script>
+<title>Toby Schachman</title>
 </head>
+
 <body>
 
-  <div class="topbar" >
-    <div class="topbar-inner">
-      <div class="container">
-        <a class="brand" href="javascript://" onclick="$('a[cat=about]').click()">Toby Schachman</a>
-        <ul class="nav">
-          <li><a href="javascript://" cat="about">About</a></li>
-          <li class="active"><a href="javascript://" cat="">Portfolio</a></li>
-          <li><a href="javascript://" cat="web">Web</a></li>
-          <li><a href="javascript://" cat="video">Video</a></li>
-          <li><a href="javascript://" cat="sound">Sound</a></li>
-          <li><a href="javascript://" cat="physical">Physical</a></li>
-        </ul>
-        <ul class="nav secondary-nav">
-          <li>
-            <script type="text/javascript">
-            document.write("<n uers=\"znvygb:gdf@nyhz.zvg.rqh\">gdf@nyhz.zvg.rqh</n>".replace(/[a-zA-Z]/g, function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));
-            </script>
-          </li>
-        </ul>
-      </div>
+
+<div class="Cards">
+
+<!-- Bio -->
+
+<div class="Card">
+  <div class="CardTitle">Toby Schachman</div>
+  <div class="Bio">
+    <p>I'd like to create a feeling of <em>frictionless creativity</em>.</p>
+    <p>Towards this, I make &#8220;experimental programming interfaces&#8221; that enable people to leverage computational power through non-traditional channels of expression&#8212;not just &#8220;code&#8221;.</p>
+    <p>
+      <a href="mailto:tqs@alum.mit.edu"><i class="icon ion-android-mail"></i> tqs@alum.mit.edu</a><br />
+      <a href="https://twitter.com/mandy3284"><i class="icon ion-social-twitter"></i> mandy3284</a>
+    </p>
+  </div>
+</div>
+
+<!-- Projects -->
+
+<div class="Card">
+  <div class="ComingSoon"></div>
+
+  <div class="CardImage">
+
+    <video preload="auto" loop poster="http://thumbs.gfycat.com/UnhappyWhirlwindAmericankestrel-poster.jpg">
+      <source src="http://zippy.gfycat.com/UnhappyWhirlwindAmericankestrel.webm" type="video/webm">
+      <source src="http://zippy.gfycat.com/UnhappyWhirlwindAmericankestrel.mp4" type="video/mp4">
+      <img src="http://giant.gfycat.com/UnhappyWhirlwindAmericankestrel.gif" />
+    </video>
+
+  </div>
+  <div class="CardTitle">Shadershop</div>
+</div>
+
+<a href="http://refractor.pixelshaders.com/"><div class="Card">
+  <div class="CardImage">
+
+<!--     <video preload="auto" loop poster="http://thumbs.gfycat.com/HarmlessWanCockatiel-poster.jpg">
+      <source src="http://zippy.gfycat.com/HarmlessWanCockatiel.webm" type="video/webm">
+      <source src="http://fat.gfycat.com/HarmlessWanCockatiel.mp4" type="video/mp4">
+      <img src="http://zippy.gfycat.com/HarmlessWanCockatiel.gif" />
+    </video>
+ -->
+    <video preload="auto" loop poster="http://thumbs.gfycat.com/SecondaryDecimalBunting-poster.jpg">
+      <source src="http://zippy.gfycat.com/SecondaryDecimalBunting.webm" type="video/webm">
+      <source src="http://fat.gfycat.com/SecondaryDecimalBunting.mp4" type="video/mp4">
+      <img src="http://zippy.gfycat.com/SecondaryDecimalBunting.gif" />
+    </video>
+
+  </div>
+  <div class="CardTitle">Refractor</div>
+</div></a>
+
+<a href="http://recursivedrawing.com/"><div class="Card">
+  <div class="CardImage">
+
+    <video preload="auto" loop poster="http://thumbs.gfycat.com/WhichGlitteringHydra-poster.jpg">
+      <source src="http://zippy.gfycat.com/WhichGlitteringHydra.webm" type="video/webm">
+      <source src="http://zippy.gfycat.com/WhichGlitteringHydra.mp4" type="video/mp4">
+      <img src="http://fat.gfycat.com/WhichGlitteringHydra.gif" />
+    </video>
+
+  </div>
+  <div class="CardTitle">Recursive Drawing</div>
+</div></a>
+
+<a href="http://pixelshaders.com/"><div class="Card">
+  <div class="CardImage">
+
+    <video preload="auto" loop poster="http://thumbs.gfycat.com/GoodWellwornArawana-poster.jpg">
+      <source src="http://zippy.gfycat.com/GoodWellwornArawana.webm" type="video/webm">
+      <source src="http://zippy.gfycat.com/GoodWellwornArawana.mp4" type="video/mp4">
+      <img src="http://zippy.gfycat.com/GoodWellwornArawana.gif" />
+    </video>
+
+  </div>
+  <div class="CardTitle">Pixel Shaders</div>
+</div></a>
+
+<a href="SphereOfWater/"><div class="Card">
+  <div class="CardImage"><img src="home/sphereofwater.jpg" /></div>
+  <div class="CardTitle">Sphere of Water</div>
+</div></a>
+
+<a href="InfiniteSympathy/"><div class="Card">
+  <div class="CardImage"><img src="home/infinitesympathy.jpg" /></div>
+  <div class="CardTitle">Infinite Sympathy</div>
+</div></a>
+
+<a href="DigitalKaleidoscope/"><div class="Card">
+  <div class="CardImage"><img src="home/digitalkaleidoscope.jpg" /></div>
+  <div class="CardTitle">Digital Kaleidoscope</div>
+</div></a>
+
+<a href="SpinningBeachBallOfDeath/"><div class="Card">
+  <div class="CardImage">
+    <div class="AnimatedSpinningBallBackground">
+      <div class="AnimatedSpinningBall"></div>
     </div>
   </div>
+  <div class="CardTitle">Spinning Beach Ball of Death</div>
+</div></a>
 
-  <div class="container">
+<a href="HaikuWifi/"><div class="Card">
+  <div class="CardImage"><img src="home/haikuwifi.jpg" /></div>
+  <div class="CardTitle">Haiku Wifi</div>
+</div></a>
 
-    <section class="cat-web">
-      <div class="page-header">
-        <h1>Recursive Drawing <small class="date">May 2012</small></h1>
-      </div>
-      <div class="row">
-        <div class="span10">
-          <iframe src="http://player.vimeo.com/video/41822151?title=0&amp;byline=0&amp;portrait=0" width="580" height="326" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
-        </div>
-        <div class="span6">
-          <p>Traditional computer programming tools promote an accounting-centric mindset. We keep track of values, move them around, add and multiply them. Our programming power is founded on doing accounting tricks.</p>
-          <p>Yet we have our most profound and creative ideas when we think spatially.</p>
-          <p><a href="http://recursivedrawing.com/draw.html">Recursive Drawing</a> is an exploration of user interface ideas towards the development of a spatially-oriented programming environment.</p>
-          <p><b><a href="http://recursivedrawing.com/draw.html">Try it in the browser</a></b>.</p>
-          <p><a class="show-more" href="javascript://">Show More &raquo;</a></p>
-        </div>
-      </div>
-      <div class="more">
-        <div class="row">
-          <div class="span10">
-            <iframe src="http://player.vimeo.com/video/41968528?title=0&amp;byline=0&amp;portrait=0" width="580" height="326" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
-          </div>
-          <div class="span6">
-            <p>Recursive Drawing was developed as part of my ITP thesis project, <em>Alternative Programming Interfaces for Alternative Programmers</em>.
-            <p>It is implemented in Javascript using the Canvas API. Source code is available <a href="https://github.com/electronicwhisper/recursive-drawing/tree/gh-pages">on GitHub</a>.</p>
-            <p>RecursiveDrawing.com was featured as the <a href="http://news.ycombinator.com/item?id=3951255">top item on Hacker News</a> on May 9, 2012.</p>
-          </div>
-        </div>
-      </div>
-    </section>
+<a href="Transpiration/"><div class="Card">
+  <div class="CardImage"><img src="home/transpiration.jpg" /></div>
+  <div class="CardTitle">Transpiration</div>
+</div></a>
 
-    <section class="cat-physical">
-      <div class="page-header">
-        <h1>Sphere of Water <small class="date">January 2012</small></h1>
-      </div>
-      <div class="row">
-        <div class="span10">
-          <img src="sphere-of-water/cover.jpg" width="580" height="387" />
-        </div>
-        <div class="span6">
-          <p>Sphere of Water was built for <a href="http://arthackday.net/">Art Hack Day 2012</a>.</p>
-          <p>Entirely analog, it is made from laser-cut acrylic mirrors, LED ribbon, water, and a water pump.</p>
-          <p>Read more about the <a href="http://www.sundialtone.com/?p=865">concept and making</a> of the piece.</p>
-          <p>Featured in <a href="http://techcrunch.com/2012/02/01/art-hack-day/">TechCrunch</a>, <a href="http://www.fastcocreate.com/1679538/from-an-iphone-powered-jump-rope-to-kinect-russian-roulette-art-hack-day-melds-tech-and-crea">Fast Company</a>, <a href="http://www.core77.com/blog/events/recap_and_highlights_from_art_hack_day_at_319_scholes_21692.asp">core77</a>.</p>
-        </div>
-      </div>
-    </section>
+<a href="TimeTravelers/"><div class="Card">
+  <div class="CardImage">
 
-    <section class="cat-physical cat-web">
-      <div class="page-header">
-        <h1>Haiku Wifi <small class="date">January 2012</small></h1>
-      </div>
-      <div class="row">
-        <div class="span10">
-          <img src="haiku-wifi/cover.png" width="580" height="326" />
-        </div>
-        <div class="span6">
-          <p>Haiku Wifi is a neighborhood bulletin board living in the wireless cloud.</p>
-          <p>A haiku message is displayed as wifi network IDs. When you connect to these networks, you are shown a web page which allows you to change the haiku.</p>
-          <p>Haiku Wifi is entirely self-contained on a hacked commodity wifi router.</p>
-          <p>Collaboration with <a href="http://jedahan.com/">Jonathan Dahan</a>.</p>
-          <p><a class="show-more" href="javascript://">Show More &raquo;</a></p>
-        </div>
-      </div>
-      <div class="more">
-        <div class="row">
-          <div class="span5">
-            <img src="haiku-wifi/1.png" width="280" height="161" />
-          </div>
-          <div class="span5">
-            <img src="haiku-wifi/2.png" width="280" height="161" />
-          </div>
-          <div class="span6" style="float: right">
-            <p>Haiku Wifi was created for and exhibited at <a href="http://arthackday.net/">Art Hack Day</a> at <a href="http://319scholes.org/">319 Scholes</a>. The installation consisted of the router itself, on a pedestal with instructions for visitors to check their wifi.</p>
-            <p>Full details for configuring the router and the source code are <a href="https://github.com/jedahan/haiku-wifi">available on Github</a>.</p>
-            <p>A selection of contributed haiku:</p>
-            <p><i>Morning sunset on seashore<br />
-            Trampoline rising hart with u<br />
-            Someday waves will wake us..</i></p>
-            <p><i>obtaining IP<br />
-            address from haiku wifi<br />
-            you are now connected.</i></p>
-            <p><i>Under my haiku<br />
-            The frog map does say drop do<br />
-            Now we are frozen</i></p>
-            <p><i>Hello bromo do<br />
-            You have a nice face and hand<br />
-            Bodies are so weird</i></p>
-            <p><i>Juliadam mosellera<br />
-            Pizzarty brocolini<br />
-            Loveblur</i></p>
-            <p><i>Lost in wifi sea.<br />
-            Too much weed, how to haiku?<br />
-            Im no good at this.</i></p>
-            <p><i>Im at an art show<br />
-            It is full of artsy nerds<br />
-            Im pretty happy</i></p>
-            <p><i>Myriad lighted LEDs<br />
-            Unexplained art<br />
-            Thousand kinds</i></p>
-          </div>
-          <div class="span5" style="margin-top: 17px">
-            <img src="haiku-wifi/usage1.jpg" width="280" height="316" />
-          </div>
-          <div class="span5" style="margin-top: 17px">
-            <img src="haiku-wifi/usage2.jpg" width="280" height="316" />
-          </div>
-        </div>
-      </div>
-    </section>
-
-
-    <section class="cat-video cat-physical">
-      <div class="page-header">
-        <h1>Transpiration <small class="date">December 2011</small></h1>
-      </div>
-      <div class="row">
-        <div class="span10">
-          <img src="transpiration/cover.jpg" width="580" height="363" />
-        </div>
-        <div class="span6">
-          <p>Transpiration is an interactive projection in the courtyard of the landmark building at 240 Central Park South in New York City.</p>
-          <p>Twenty-seven branches on the tree represent the twenty-seven stories of the building. Four lines moving along the trunk track the movement of the elevators up and down the building in real time. The branches of the tree grow and shrink in response to the residents getting on and off floors in the building.</p>
-          <!-- <p>Tenants can see this exterior courtyard space from their windows and as they move through the rotunda of the building. Transpiration is intended to evoke the feeling of Central Park and transplant an element of the park for the tenants who do not have park-facing views.</p>
-          <p>Where once this space was ignored and inaccessible, now residents can connect to their courtyard, as their movement through the building directly affects the projected image.</p> -->
-          <p>Collaboration with <a href="http://portfolio.jackkalish.com/">Jack Kalish</a>, <a href="http://www.levinegabriella.com/">Gabriella Levine</a>, and <a href="http://emilywebster.com/">Emily Webster</a></p>
-          <p><a class="show-more" href="javascript://">Show More &raquo;</a></p>
-        </div>
-      </div>
-      <div class="more">
-        <div class="row">
-          <div class="span10">
-            <img src="transpiration/security.jpg" width="580" height="435" />
-          </div>
-          <div class="span6">
-            <p>To track the elevators, a computer vision application is connected to the building's live security camera feed.</p>
-            <p>The computer vision application sends messages of elevator activity to a separate application which displays the tree visualization.</p>
-            <p>Both of these were made in <a href="http://processing.org/">Processing</a>.</p>
-            <p>The source code is available on GitHub (<a href="https://github.com/electronicwhisper/sb_elevator">Computer Vision</a>, <a href="https://github.com/CorpusCallosum/Transpiration">Visualization</a>).</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-
-    <section class="cat-video cat-sound cat-physical">
-      <div class="page-header">
-        <h1>Gold Noise <small class="date">May 2011</small></h1>
-      </div>
-      <div class="row">
-        <div class="span10">
-          <img src="gold-noise/front2.jpg" width="580" height="326" />
-        </div>
-        <div class="span6">
-          <p>Gold Noise is the sound of one million pop songs all playing at once.</p>
-          <p>This is a series of works including: a Mac OS X Application, a website for listening to internet radio stations around the world, a video, several sound pieces, and a physical installation.</p>
-          <p>The installation consists of a circle of portable radios, each individually tuned to a separate station in the vicinity.</p>
-          <p>See the entire series at <a href="http://goldnoise.org/">goldnoise.org</a></p>
-          <p><a class="show-more" href="javascript://">Show More &raquo;</a></p>
-        </div>
-      </div>
-      <div class="more">
-        <div class="row">
-          <div class="span5">
-            <iframe src="http://player.vimeo.com/video/23223949?title=0&amp;byline=0&amp;portrait=0" width="280" height="224" frameborder="0" webkitAllowFullScreen allowFullScreen></iframe>
-          </div>
-          <div class="span5">
-            <iframe src="http://player.vimeo.com/video/21726531?title=0&amp;byline=0&amp;portrait=0" width="280" height="224" frameborder="0" webkitAllowFullScreen allowFullScreen></iframe>
-          </div>
-          <div class="span6">
-            <p><i>Left</i></p>
-            <p>All of the tracks from <i>Now That's What I Call Music Vol 37</i> playing at once.</p>
-            <p><i>Right</i></p>
-            <p>A Mac OS X application that plays randomly selected mp3 files from the user's computer.</p>
-            <p>Download <a href="http://goldnoise.org/goldnoisegenerator.zip">Gold Noise Generator.zip</a>.</p>
-            <p>The source code is <a href="https://github.com/electronicwhisper/Gold-Noise-Generator">available on GitHub</a>.</p>
-          </div>
-        </div>
-        <div class="row">
-          <div class="span10">
-            <iframe src="http://player.vimeo.com/video/20813372?title=0&amp;byline=0&amp;portrait=0" width="580" height="326" frameborder="0" webkitAllowFullScreen allowFullScreen></iframe>
-          </div>
-          <div class="span6">
-            <p>Visual Gold Noise combines the top 10 music videos from YouTube/VEVO (as viewed on March 8, 2011).</p>
-            <p>The video content was composited by exploiting compression algorithms used to efficiently transmit video over the internet.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-
-    <section class="cat-video cat-physical">
-      <div class="page-header">
-        <h1>Time Travelers <small class="date">March 2011</small></h1>
-      </div>
-      <div class="row">
-        <div class="span10">
-          <iframe src="http://player.vimeo.com/video/21474382?title=0&amp;byline=0&amp;portrait=0" width="580" height="326" frameborder="0" webkitAllowFullScreen allowFullScreen></iframe>
-        </div>
-        <div class="span6">
-          <p>Time Travelers is an interactive video mirror installation.</p>
-          <p>A monitor shows a still image. As the viewer approaches the piece, her three dimensional form emerges on the screen as a subtle distortion in the image. Upon further exploration, we discover that the image is a time-lapse video, and that the viewer's distance from the piece is reflected as a time warp in the video.</p>
-          <p>Exhibited at <a href="http://www.paleycenter.org/p-luminance">The Paley Center for Media</a>, February - May 2012.
-          <p><a class="show-more" href="javascript://">Show More &raquo;</a></p>
-        </div>
-      </div>
-      <div class="more">
-        <div class="row">
-          <!-- <div class="span5">
-            <img src="time-travelers/installed1.jpg" width="280" height="210" />
-          </div>
-          <div class="span5">
-            <img src="time-travelers/installed2.jpg" width="280" height="210" />
-          </div> -->
-          <div class="span10">
-            <iframe src="http://player.vimeo.com/video/41127371?title=0&amp;byline=0&amp;portrait=0" width="580" height="326" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
-          </div>
-          <div class="span6">
-            <p>Time Travelers uses the Kinect 3D camera to capture a depth image of the viewer. This depth data is mapped pixel-by-pixel to time on a source video. The closer the viewer is to the camera, the later in time is the video.</p>
-            <p>Time Travelers was created in <a href="http://www.openframeworks.cc/">openFrameworks</a>. Source code is available <a href="https://github.com/electronicwhisper/Time-Travellers">on GitHub</a>.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="cat-physical">
-      <div class="page-header">
-        <h1>Infinite Sympathy <small class="date">March 2011</small></h1>
-      </div>
-      <div class="row">
-        <div class="span10">
-          <img src="infinite-sympathy/front1.jpg" width="580" height="387" />
-        </div>
-        <div class="span6">
-          <p>Infinite Sympathy is a sculpture consisting of a dual kaleidoscope&mdash;a kaleidoscope with an eye opening on each end.</p>
-          <p>It is mounted on a table between two chairs, inviting two viewers/subjects to simultaneously look through and see each other's eye reflected into infinity.</p>
-          <p><a class="show-more" href="javascript://">Show More &raquo;</a></p>
-        </div>
-      </div>
-      <div class="more">
-        <div class="row">
-          <div class="span10">
-            <img src="infinite-sympathy/front2.jpg" width="580" height="387" />
-          </div>
-          <div class="span6">
-            <p>The kaleidoscope consists of three mirrors within a brass tube. It is mounted to the table with steel struts.</p>
-            <p>LEDs line the inside of the kaleidoscope on either end. These LEDs illuminate the viewers' eyes.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-
-    <section class="cat-video cat-physical">
-      <div class="page-header">
-        <h1>Digital Kaleidoscope <small class="date">December 2010</small></h1>
-      </div>
-      <div class="row">
-        <div class="span10">
-          <img src="digital-kaleidoscope/front.jpg" width="580" height="326" />
-        </div>
-        <div class="span6">
-          <p>The Digital Kaleidoscope is a physical kaleidoscope coupled with a custom-designed iPhone app.</p>
-          <p>The iPhone is slipped into a sleeve at the end of the kaleidoscope. The user looks through the eyehole to see a geometric animation which is reflected by the kaleidoscope onto an infinite plane.</p>
-          <p><a class="show-more" href="javascript://">Show More &raquo;</a></p>
-        </div>
-      </div>
-      <div class="more">
-        <div class="row">
-          <div class="span10"><img src="digital-kaleidoscope/use.jpg" width="580" height="326"></div>
-          <div class="span6">
-            <p>The iPhone app is sensitive to motion and the attaching mechanism spins freely on the kaleidoscope tube.</p>
-            <p>As the user spins the iPhone attachment, the animation changes in response.</p>
-            <p>The iPhone app was created using <a href="http://www.openframeworks.cc/">openFrameworks</a>.</p>
-            <p>The kaleidoscope is constructed from laser-cut acrylic.</p>
-          </div>
-        </div>
-      </div>
-
-    </section>
-
-
-    <section class="cat-video">
-      <div class="page-header">
-        <h1>Advanced Enterprise Research Office <small class="date">January 2010</small></h1>
-      </div>
-      <div class="row">
-        <div class="span10">
-          <img src="aero/front3.jpg" width="580" height="326" />
-        </div>
-        <div class="span6">
-          <p>Advanced Enterprise Research Office is a 3D game where the space you're in is constantly transforming due to datamoshing.</p>
-          <p>Advanced Enterprise Research Office was produced in collaboration with <a href="http://bnewbold.net/">Bryan Newbold</a> for the 2010 Global Game Jam.</p>
-          <p>The Global Game Jam is a worldwide, 48-hour game making marathon. The theme for the 2010 jam was <i>deception</i>.</p>
-          <p><a class="show-more" href="javascript://">Show More &raquo;</a></p>
-        </div>
-      </div>
-      <div class="more">
-        <div class="row">
-          <div class="span10">
-            <iframe src="http://player.vimeo.com/video/9119796?title=0&amp;byline=0&amp;portrait=0" width="580" height="441" frameborder="0" webkitAllowFullScreen allowFullScreen></iframe>
-          </div>
-          <div class="span6">
-            <p>Datamoshing is an effect that exploits video compression algorithms to distort an image. In general, video compression algorithms will encode the entire image of the first frame of a video. Then, each subsequent frame will be encoded as its difference from the previous frame. The datamoshing effect is created by applying these frame difference instructions to an image that is <i>not</i> the original first frame.</p>
-            <p>We made the game by altering the open source Quake 3 engine <a href="http://ioquake3.org/">ioquake3</a>. Video from this was fed in real-time to Quartz Composer and composited using <a href="http://kriss.cx/tom/datamosh/">Tom Butterworth's Datamosh Plugin</a>.</p>
-            <p>Details and development documentation can be found <a href="http://aero.electronicwhisper.com/">here</a>.
-          </div>
-        </div>
-      </div>
-
-    </section>
-
-
-    <section class="cat-web">
-      <div class="page-header">
-        <h1>Earl Research <small class="date">2006 - 2009</small></h1>
-      </div>
-      <div class="row">
-        <div class="span10">
-          <img src="earl-research/front.jpg" width="580" height="344" />
-        </div>
-        <div class="span6">
-          <p>In late 2006 I began producing web-based prototypes for a next-generation Intelligence Community workstation envisioned by Ted Goranson. We grew this work into a 7-person research group with numerous outside consultants. This work was funded by Earl Industries, the largest privately-owned US Navy contractor.</p>
-          <p>I managed a team of 4 programmers responsible for implementing prototypes and explanatory demos based on Ted's user interface and knowledge representation research.</p>
-        </div>
-      </div>
-    </section>
-
-
-    <!-- <section class="cat-web">
-      <div class="page-header">
-        <h1>FilmsFolded <small class="date">2004 - Present</small></h1>
-      </div>
-      <div class="row">
-        <div class="span10">
-          <img src="filmsfolded/front.jpg" width="578" height="324" style="border: 1px solid #999" />
-        </div>
-        <div class="span6">
-          <p>FilmsFolded is a database of the collected IMDB comments of Ted Goranson.</p>
-          <p>Ted Goranson has been studying the structure of film narrative since 2000. He has written comments on over three thousand films.</p>
-          <p>FilmsFolded allows these comments to be searched textually or navigated based on directors and actors.</p>
-          <p>Visit <a href="http://filmsfolded.com/">filmsfolded.com</a>.</p>
-        </div>
-      </div>
-    </section> -->
-
-
-    <section class="cat-web">
-      <div class="page-header">
-        <h1>SubProfile <small class="date">2001 - 2003</small></h1>
-      </div>
-      <div class="row">
-        <div class="span10">
-          <img src="subprofile/subprofile.png" width="580" height="269" />
-        </div>
-        <div class="span6">
-          <p>SubProfile was an early social network implemented as a web-based add-on for AOL Instant Messenger (AIM).</p>
-          <p>At its height, SubProfile had over 3 million registered users and over 7 million monthly unique visitors.</p>
-          <p>It was one of the top ten most visited websites by teenagers in 2002 (Nielsen/NetRatings).</p>
-          <p>Co-founded with <a href="http://www.rogerlee.com/">Roger Lee</a>.</p>
-        </div>
-      </div>
-    </section>
-
-
-
-    <section class="cat-about cat-web cat-video cat-sound cat-physical">
-      <div class="page-header">
-        <h1 style="color: #999">About Me</h1>
-      </div>
-      <div class="row" style="padding-bottom: 0px">
-        <div class="span5">
-          <img src="toby2.jpg" width="280" height="244" />
-        </div>
-        <div class="span11">
-          <p>I am an artist and programmer with a background in mathematics. I have worked in the contexts of internet startup culture, Hollywood 3D animation, exploring perception through interactive art, and teaching computers to understand stories.</p>
-          <p>My current focus is creating alternative interfaces for programming computers. These interfaces are targeted at <i>alternative programmers</i>, artists and creative explorers with non-technical backgrounds.</p>
-          <p>Read more about my current interests on <a href="http://www.sundialtone.com/">my blog</a>, or get up-to-the-minute thoughts on <a href="https://twitter.com/mandy3284">my twitter</a>.</p>
-          <p>I graduated in 2006 from MIT with a bachelor's degree in Mathematics with Computer Science. I received my master's degree in 2012 from the Interactive Telecommunications Program at NYU.</p>
-          <p>Thank you for visiting my website!<br/>Toby</p>
-          <p>
-            <script type="text/javascript">
-            document.write("<n uers=\"znvygb:gdf@nyhz.zvg.rqh\">gdf@nyhz.zvg.rqh</n>".replace(/[a-zA-Z]/g, function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));
-            </script>
-          </p>
-        </div>
-      </div>
-    </section>
+    <video preload="auto" loop poster="http://thumbs.gfycat.com/PeriodicPlaintiveAustraliankelpie-poster.jpg">
+      <source src="http://zippy.gfycat.com/PeriodicPlaintiveAustraliankelpie.webm" type="video/webm">
+      <source src="http://zippy.gfycat.com/PeriodicPlaintiveAustraliankelpie.mp4" type="video/mp4">
+      <img src="http://giant.gfycat.com/PeriodicPlaintiveAustraliankelpie.gif" />
+    </video>
 
   </div>
+  <div class="CardTitle">Time Travelers</div>
+</div></a>
+
+<a href="http://goldnoise.org/"><div class="Card">
+<!--   <div class="CardImage">
+
+    <video preload="auto" loop poster="http://thumbs.gfycat.com/MasculineTartCurassow-poster.jpg">
+      <source src="http://fat.gfycat.com/MasculineTartCurassow.webm" type="video/webm">
+      <source src="http://fat.gfycat.com/MasculineTartCurassow.mp4" type="video/mp4">
+      <img src="http://giant.gfycat.com/MasculineTartCurassow.gif" />
+    </video>
+
+  </div> -->
+  <div class="CardImage"><img src="home/goldnoise.jpg" /></div>
+  <div class="CardTitle">Gold Noise</div>
+</div></a>
+
+<a href="AdvancedEnterpriseResearchOffice/"><div class="Card">
+  <div class="CardImage">
+
+    <video preload="auto" loop poster="http://thumbs.gfycat.com/HarmoniousScientificAustralianfurseal-poster.jpg">
+      <source src="http://zippy.gfycat.com/HarmoniousScientificAustralianfurseal.webm" type="video/webm">
+      <source src="http://zippy.gfycat.com/HarmoniousScientificAustralianfurseal.mp4" type="video/mp4">
+      <img src="http://fat.gfycat.com/HarmoniousScientificAustralianfurseal.gif" />
+    </video>
+
+  </div>
+  <div class="CardTitle">Advanced Enterprise Research Office</div>
+</div></a>
+
+
+
+
+
+</div>
+
+
+<script src="home/home.js"></script>
 
 </body>
 </html>
