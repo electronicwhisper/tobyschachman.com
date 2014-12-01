@@ -8,6 +8,9 @@ body {
   font-size: 16px;
   font-family: 'Source Sans Pro', sans-serif;
 }
+img {
+  border: 0;
+}
 .FullScreenImage {
   display: block;
   margin: auto;
