@@ -1,0 +1,204 @@
+<html>
+<head>
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<link href="http://code.ionicframework.com/ionicons/1.5.2/css/ionicons.min.css" rel="stylesheet" type="text/css" />
+<link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,700,200italic,300italic,400italic,700italic" rel="stylesheet" type="text/css" />
+<link rel="icon" type="image/png" href="/assets/favicon.png">
+
+<link href="/assets/page.css" rel="stylesheet" type="text/css" />
+
+<title>Shadershop</title>
+</head>
+
+<body class="ThemeLight">
+
+
+<div class="Centered"><div class="Title">Shadershop Notes</div>
+<div class="Date">December 2014</div>
+
+<p>Here I document the design and development process of Shadershop, discuss previous prototypes, try to distill some &#x201C;lessons learned&#x201D;, and gesture towards possible futures for this kind of work.</p>
+<p>The target audience is other creators who are pushing towards new ways that we can richly collaborate with computers. This document is long&#x2014;favoring coverage over cohesion&#x2014;but I hope there are some nuggets that you&#x2019;ll find useful in your explorations.</p>
+<p><img src="durer.jpg" class="FullScreenImage"></p>
+<h1 id="evolution">Evolution</h1>
+<h2 id="origins">Origins</h2>
+<p>Shadershop evolved from two prototypes I made for the <a href="http://pixelshaders.com/">Pixel Shaders</a> project.</p>
+<p>The first was an interactive visualization that let you explore a mathematical expression by breaking it down into pieces. In shaders you often come across magical one-liners that perform some signal transformation, for example <code>abs(mod(x, 2.) - 1.)</code> which makes a signal &#x201C;bounce&#x201D; between 0 and 1. Like a long sentence with unfamiliar words, these can be tricky to parse for beginners. But experienced programmers know to build understanding in parts: figure out what each subexpression does and then figure out how they combine to make the whole expression. You keep breaking the problem down into subproblems until your subproblems are small enough that you can wrap your mind around them. Then build back up again.</p>
+<div class="VideoEmbed" data-src="http://player.vimeo.com/video/112119838" data-aspect="1.776"></div>
+
+<p>I tried to capture this experience through this cartesian graph visualization. The expression in question is broken down into subexpressions exactly as the computer would parse it, as in an abstract syntax tree. You can then hover any subexpression to see it, and as you move &#x201C;up&#x201D; the tree, you can see how each modification to the expression transforms the graph.</p>
+<p>The goal is to get the beginner programmer thinking in terms of transformations, using functions to sculpt signals. I thought it might be neat to augment a visualization like this with a manipulation interface so that you could sculpt the signal by applying functions to it, like applying filters to an image in Photoshop.</p>
+<p>I had the opportunity to try this during my Eyebeam/Mozilla fellowship for Pixel Shaders. <a href="http://eyebeam.org/">Eyebeam</a> is embedded in the &#x201C;Arts&#x201D; world and as such the venue for expression is the gallery or exhibition. Typically to learn programming requires sitting and concentrating alone for hours. How do you convey the experience of shader programming to gallery visitors who might poke at your installation for thirty seconds and want to hang out with their friends while doing it?</p>
+<p><a href="http://refractor.pixelshaders.com/">Refractor</a> was my attempt to satisfy this design constraint.</p>
+<div class="VideoEmbed" data-src="http://player.vimeo.com/video/60983552" data-aspect="1.333"></div>
+
+<p>Visitors start with a base image (or live webcam feed) and apply layers of filters on top. Each filter is just a built-in GLSL primitive (abs, sin, etc.). Each layer can be given an individual affine transformation. I knew from Recursive Drawing that specifying affine transformations through direct manipulation (and especially multitouch) is very natural.</p>
+<p>There&#x2019;s no code to type and every thing you can do has immediate visual feedback. Though something I noticed is that visitors would sometimes hit Reflect, and then hit Reflect again, which won&#x2019;t do anything. Then they get a very confused look on their face because their action had no immediate visual feedback!</p>
+<p>To make it more of a social experience, I set up the installation so that the interface is mirrored on a large screen. Interaction takes on a performative quality. Visitors are always delighted to discover the live webcam feed and selfies ensue. The live webcam feed also shows that you&#x2019;re not manipulating an image, you&#x2019;re manipulating a <em>spatial transformation</em>&#x2014;the base image is arbitrary.</p>
+<p><img src="refractorinstall1_large.jpg" class="FullScreenImage">
+<img src="refractorinstall2_large.jpg" class="FullScreenImage"></p>
+<p>Refractor was fun to play with, but I was disappointed that it could not be used to create arbitrary spatial transformations. I wanted a direct manipulation interface for shaders that was as mathematically expressive as typing GLSL code directly.</p>
+<h2 id="first-prototype">First Prototype</h2>
+<p>My first attempt took the &#x201C;series of transformations&#x201D; idea of Refractor and applied it to the simpler domain of one-dimensional functions, represented visually as a cartesian graph.</p>
+<div class="VideoEmbed" data-src="http://player.vimeo.com/video/114621344" data-aspect="1.042"></div>
+
+<h3 id="spreads">Spreads</h3>
+<p>Some transformations take additional parameters, for example <code>+</code> and <code>*</code>. When you hover over a parameter, you see a &#x201C;spread&#x201D; showing how the resulting graph would change if you were to scrub that parameter.</p>
+<div class="VideoEmbed" data-src="http://player.vimeo.com/video/114621345" data-aspect="1.042"></div>
+
+<p>When you have a parameter of a function or of a program, you fundamentally need to understand how changing that parameter changes the result of the function. One way to do this is with good labels: give your variables good names. An additional technique is to make parameters scrubbable, so that you can conveniently <em>see</em> how changing the parameter changes the result with <em>continuous feedback</em>. This spread technique is yet another way to see how a parameter affects the result. It is even quicker than scrubbing, but is only useful when the spread can be effectively shown statically without being visually overwhelming.</p>
+<h3 id="transclusion">Transclusion</h3>
+<p>Parameters can be <em>transcluded</em> across multiple transformations. I think transclusion of values is more natural than referencing variables by name in direct manipulation interfaces.</p>
+<div class="VideoEmbed" data-src="http://player.vimeo.com/video/114621346" data-aspect="1.042"></div>
+
+<p>An advantage of transclusion is that you never have reference errors. What was a <em>name</em> is now just a <em>label</em>. Like a comment. You can write anything here, and the label changes anywhere the shared value is used.</p>
+<p>Additionally, you can reuse a computed value anywhere that you can use a constant value. Just drag the thumbnail. The &#x201C;drag to transclude&#x201D; gesture is consistent.</p>
+<div class="VideoEmbed" data-src="http://player.vimeo.com/video/114621347" data-aspect="1.042"></div>
+
+<h2 id="second-prototype">Second Prototype</h2>
+<p>The first prototype provided a single linear series of transformations&#x2014;data flow through a single, non-branching pipeline. Crude branching pipelines were hackable by &#x201C;resetting&#x201D; and transcluding previous graphs as in the above video.</p>
+<p>My second prototype aimed to provide more natural support for branching data flow and also to implement function abstraction&#x2014;&#x201C;lambda&#x201D; abstraction.</p>
+<p>Additionally, there was activity around the lab about <a href="http://worrydream.com/ExplorableExplanations/">explorable explanations</a>, so I was interested in seeing if this type of interface could be used for interactive <a href="http://en.wikipedia.org/wiki/Literate_programming">literate programs</a>, source code that explains itself to its reader and provides opportunities to experiment with it in the context of reading.</p>
+</div>
+
+<img src="literatefive.png" class="FullScreenImage">
+
+<div class="Centered"><h3 id="parameter-abstraction">Parameter Abstraction</h3>
+<p>You make a function by first creating <em>a concrete example</em>, then specifying that a value should be <em>parameterized</em> by dragging it up into the function definition area.</p>
+<div class="VideoEmbed" data-src="http://player.vimeo.com/video/112224393" data-aspect="0.696"></div>
+
+<p>Start concrete, then generalize. This is the &#x201C;create by abstracting&#x201D; principle from Bret Victor&#x2019;s <a href="http://worrydream.com/LearnableProgramming/">Learnable Programming</a> essay.</p>
+<p>By first creating a concrete example, all functions automatically get <em>default arguments</em>. Thus in the &#x201C;autocomplete&#x201D;, you can immediately see the effect of a function (with its default arguments). This is &#x201C;create by reacting&#x201D; from Learnable Programming.</p>
+<h2 id="shadershop-proof-of-concept">Shadershop Proof of Concept</h2>
+<p>Yoshiki Ohshima showed me an <a href="http://www.squeakland.org/">eToys</a> example about adding sine waves to produce a sawtooth wave and asked if we could try to produce it using the above prototype. I think we eventually got it but the interface didn&#x2019;t help.</p>
+<p>I thought about how one would ideally build the sine waves example and came up with this:</p>
+<div class="VideoEmbed" data-src="http://player.vimeo.com/video/92777770" data-aspect="1.294"></div>
+
+<p>This is the moment everything came together. For me, the seed that grows these projects is an interactive prototype that demonstrates the <em>feeling</em> of a simple example. Once I capture the core feeling, everything else follows.</p>
+<p>Often at the beginning of a project, what all the pieces are and how they&#x2019;ll all fit together is cloudy. The solution is to pick a specific example and then make just those pieces you need for the example and fit them together. Don&#x2019;t generalize, just get the basic example working! This can give a project its initial momentum.</p>
+<h2 id="radical-representation">Radical Representation</h2>
+<p>We tend to conflate the <em>activity</em> of programming&#x2014;specifying the behavior of a system&#x2014;with the <em>representation</em> of textual code. We think programming <em>is</em> coding. This is the same trap as conflating mathematical reasoning with the symbols drawn on school chalkboards.</p>
+<p>Our representations serve us. They extend our cognitive apparatus, enabling us to think in ways that we would not be able to without them. In the 1300s, multiplication was skill possessed only by the mathematically elite. Then Arabic numerals replaced Roman numerals and multiplication became an idea accessible to anyone.</p>
+<p>Representations <em>channel</em> our thoughts, but they are not our thoughts. Further, we can <em>invent</em> new representations in order to channel our thoughts in new directions.</p>
+<p>The word &#x201C;radical&#x201D; is taken to mean dramatically new or different, but the word stems from Latin <em>radix</em> meaning <em>root</em>. In this sense, a radical solution is not just <em>new</em>, but returns to the <em>root</em>. A radical solution sets aside previous assumptions in order to address the fundmanental activity.</p>
+<p>&#x201C;We don&#x2019;t know who discovered water but we are pretty sure it wasn&#x2019;t a fish!&#x201D; If it is difficult to realize that we are even making assumptions in the first place, how can we set them aside?</p>
+<p>One way to suss out radical solutions is to find <em>connections</em> between the activity in question and seemingly unrelated activities. At <a href="http://www.cdglabs.org/">CDG</a> we have on a wall an evolving collage of notations and representations used in diverse disciplines. Many of the ideas of Shadershop stem from discussions this poster has stimulated.</p>
+</div>
+
+<img src="representationgallery_large.jpg" class="FullScreenImage">
+
+<div class="Centered"><h2 id="borrowing-cognitive-moves-from-photoshop">Borrowing Cognitive &#x201C;Moves&#x201D; from Photoshop</h2>
+<p>In particular, Shadershop connects the activity of shader programming to the activity of transforming and compositing layers in a graphics editor like Photoshop.</p>
+<p>The visibility toggle is analogous to &#x201C;commenting out&#x201D; a line of code. Moving and resizing an image is like applying a transformation matrix (a &#x201C;multiply and add&#x201D;) on either side (domain or range) of a function.</p>
+<p>Photoshop&#x2019;s fundamental innovation over bitmap editors (say Microsoft Paint) is treating the layer as the unit of manipulation rather than the pixel. Likewise, in Shadershop the unit of manipulation&#x2014;tangible manipulation&#x2014;is the function, rather than the string of characters.</p>
+<h1 id="future-directions">Future Directions</h1>
+<h2 id="showing-composition">Showing Composition</h2>
+<p>I&#x2019;m quoting an email from Bret Victor here because it addresses a challenging issue in Shadershop and because it&#x2019;s a great example of exploring an idea visually&#x2014;in this case an extension to the interface.</p>
+<blockquote>
+<p>I was thinking about how to make composition clear.  Adding A + B = C is pretty easy to make sense of, because A, B, and C share the same domain.  But when composing A . B = C, A&#x2019;s range maps to B&#x2019;s domain, and it can be confusing what&#x2019;s going on.  A couple simple techniques might be:</p>
+<p>Indicate which parts of B are being sampled by A.  In the picture below, the portion of the sine that is actually used is drawn heavier, and the unused portion is lighter and dashed:</p>
+</blockquote>
+<p><img src="a.png" class="FullScreenImage"></p>
+<blockquote>
+<p>Interactive inspection.  Mouse over a point on the output function, and see the points of the input functions that contributed to that output point:</p>
+</blockquote>
+<p><img src="b.png" class="FullScreenImage"></p>
+<blockquote>
+<p>You could also go the other way &#x2014; mouse over a point on an input function, and see all the output points where that point was &#x201C;used&#x201D;:</p>
+</blockquote>
+<p><img src="c.png" class="FullScreenImage"></p>
+<blockquote>
+<p>You could probably combine them in some way similar to Nile Viewer, so mousing over any point highlights both where that point came from and where that point went.  (It was easier with Nile Viewer because data flow was represented spatially &#x2014; inputs were up and outputs were down &#x2014; whereas your dependencies are more spread around the canvas, so you would need some sort of graphical convention to indicate the direction of data flow.)</p>
+<p>The hope is that, by skimming over the functions, you can build up an understanding of where that function came from and where it went.</p>
+</blockquote>
+<h2 id="additional-visual-representations">Additional Visual Representations</h2>
+<p>Shadershop uses two visual representations: Cartesian graphs to visualize functions from 1D to 1D and color maps to visualize functions from 2D to 1D.</p>
+<p>Internally, all the numbers in Shadershop are implemented as four dimensional vectors (and matrices). This is the just the standard vector size on GPUs, and seemed like a good target to reach for in the visualizations.</p>
+<p>Unfortunately I only made it up to two dimensions, and even there the visual representation (color map) is missing a dimension in the range&#x2014;it shows a function from 2D to 1D, not 2D to 2D. I gloss over this omission in the videos&#x2014;watch carefully when I pre-compose floor on random in two dimensions.</p>
+<p>Further, the color map only shows a single function at a time. The Cartesian slices are necessary in order to make comparisons, to see how multiple functions relate to each other.</p>
+<p>It is an important open question whether this approach scales (cognitively) to higher dimensions, or how it can be made to scale to higher dimensions through techniques such as slices, projections, or small multiples.</p>
+<h3 id="alternative-visualizations">Alternative Visualizations</h3>
+<p>Shadershop uses a color map to visualize a function from 2D to 1D. Here are several alternatives from <a href="http://www.amazon.com/Cartographic-Relief-Presentation-Eduard-Imhof/dp/1589480260">a book on cartography</a>.</p>
+<p><img src="cartographic.jpg" class="FullScreenImage"></p>
+<p>Here are some techniques to visualize the local effects of a function from 2D to 2D.</p>
+<p><img src="vectorfields.jpg" class="FullScreenImage"></p>
+<p>And here is <a href="http://hint.fm/wind/">an animated technique</a>, by Fernanda Vi&#xE9;gas and Martin Wattenberg.</p>
+<div class="VideoEmbed" data-src="http://gfycat.com/ifr/EducatedDifferentHorseshoecrab" data-aspect="1.539"></div>
+
+<p>To see the global effects of a function from 2D to 2D, you can visualize it with a spatial deformation on a known pre-image, as in Refractor.</p>
+<p><img src="refractordistort.jpg" class="FullScreenImage"></p>
+<p>To visualize a function from 3D to 1D, <a href="http://new.livestream.com/cdmschool/events/3167937/videos/55979749">Ken Perlin applies a color map to the surface of a sphere</a> with an interactive control to clip through it. Notice how this is just a way to &#x201C;pan&#x201D; the space. The sphere is used as a &#x201C;camera&#x201D; to look at the three dimensional texture.</p>
+<div style="text-align: center">
+  <iframe src="http://gfycat.com/ifr/FirmConsiderateFlee" frameborder="0" scrolling="no" width="278" height="240" style="-webkit-backface-visibility: hidden;-webkit-transform: scale(1);"></iframe>
+</div>
+
+<p>Hopefully from the breadth of these examples you can see that we&#x2019;re only scratching the surface.</p>
+<p>All of these alternatives and more should be available in an environment for working with mathematical functions.</p>
+<h3 id="bootstrapping">Bootstrapping</h3>
+<p>Intriguingly, each of the above visualizations can itself be programmed as a shader or using shader-like techniques. For example, you can write a pixel shader which draws a picture of a sphere textured with a given function if it&#x2019;s allowed to sample from that function.</p>
+<p>Thus a future version might let you create new, custom function visualizations <em>within the interface</em>. This idea of <em>bootstrapping</em> a direct manipulation interface within itself&#x2014;the way that you can write a LISP interpreter within the LISP language&#x2014;is a strong research direction.</p>
+<h1 id="development">Development</h1>
+<h2 id="design-of-the-semantics">Design of the Semantics</h2>
+<p>The semantics is the mathematics you are creating&#x2014;the type system. Often the hardest challenge is just <em>choosing good words</em> for the different concepts. Sometimes a diagrammatic notation is a helpful supplement.</p>
+<p>For Shadershop, we have the notion of a <em>Function</em> which can either be a <em>Built in Function</em> (Line, Sine, Abs, etc.) or a <em>Compound Function</em>. A Compound Function consists of a combiner (Add, Multiply, or Compose) and a list of <em>Child Functions</em>. A Child Function consists of a function and a <em>Transformation</em>. A <em>Defined Function</em> is a Compound Function whose combiner just takes the last child. Additionally a Defined Function has a label and is allowed to be used within multiple Compound Functions&#x2014;it can have multiple parents, so to speak.</p>
+<p><img src="twosquaresmodel.png" class="FullScreenImage">
+<img src="twosquaresshadershop.png" class="FullScreenImage"></p>
+<p>Sometimes the semantics are given. For example <a href="http://recursivedrawing.com/">Recursive Drawing</a> borrowed semantics without much modification from <a href="http://www.contextfreeart.org/">Context Free</a>. The earlier Shadershop prototypes were concatenative variants on GLSL. But things get more exciting, and much trickier, when the semantics coevolve with the affordances of the new interface.</p>
+<h2 id="design-of-the-interface">Design of the Interface</h2>
+<p>The interface is the surface that is presented and receives back from the human interacting with the system. Literally <em>the interface</em>. The nerve endings that meet the retina and finger tips.</p>
+<p>These are some questions that come up when I&#x2019;m thinking about interface design:</p>
+<ul>
+<li>How are the objects of the semantics <em>viewed</em>? There are often multiple views.</li>
+<li>How are they manipulated?</li>
+<li>How can implied objects be viewed? That is, if viewing the base objects of the semantics visualizes the <em>source code</em> of the program, how can you visualize the <em>run-time execution</em> of the program?</li>
+<li>Can the run-time be manipulated? A good exercise is to ask &#x201C;what if I drag this?&#x201D; What <em>should</em> happen?</li>
+<li>How are the views organized (layout)?</li>
+<li>How can the programmer specify what she wants to view? Where is the programmer&#x2019;s focus?</li>
+</ul>
+<p>Traditional programming only shows the source code of the program and the final result of the computation. Once you decide that actually <em>all</em> of the data that the computation produces is potentially visualizeable, the design challenge is to decide how and when to show it. When is it helpful and when does it distract? This can only be answered by understanding what the programmer is trying to do. So how can the programmer communicate this intent to the interface?</p>
+<p>In Shadershop, the lines that are plotted on the main graph are determined by which functions are expanded in the outline.</p>
+<p>[GFY showing outline expanding and collapsing]</p>
+<p>Any function you see in the outline shows up on the main graph. An alternative design would be to have an additional toggle for each function, or perhaps a whole list of appearance settings for each function. I decided against this because showing and hiding needs to be fluid and because I wanted to strengthen the connection between the outline and the main graph.</p>
+<p>Related, the pan and zoom of every thumbnail in the outline is the same as the pan and zoom of the main graph. You need this to make comparisons. Keep everything the same, except the differences that matter.</p>
+<h2 id="implementation-of-the-semantics">Implementation of the Semantics</h2>
+<p>I generally represent a program as a data structure, in particular as a graph. I think the term of the art is <a href="http://en.wikipedia.org/wiki/Abstract_semantic_graph">Abstract Semantic Graph</a>.</p>
+<p>When I&#x2019;ve talked to programmers who want to make new interfaces for programming, an impulse that often arises is to make a new text-based language first, and then make a new interface that manipulates the text-based representation under the hood. Unless your intent is to make a text-based programming language, I think this is a mistake. It distracts from the opportunities of direct manipulation interfaces, and corrupts your initial impulses with the affordances that the text medium naturally encourages. You end up fiddling with parsers just to experiment with your semantics. Better, in my opinion, is to start with a data structure representation of your &#x201C;source code&#x201D; and get right to work on the interpreter and interface!</p>
+<p>Text-based languages get parsed into trees. Because trees can&#x2019;t have cycles, you generally need to refer to other nodes elsewhere in the tree indirectly, with some sort of name or identifier. I prefer to leapfrog this issue and just store my program as a graph rather than a tree. This representation makes it clear that a <em>name</em> is just a <em>label</em>, and you can change a name in one place and it changes everywhere, rather than making a dead link.</p>
+<p>A very practical tip: make a way to serialize and deserialize the program representation. That is, implement auto-save! Don&#x2019;t kill your program state every time you refresh your interface. The reason for this is that you want to <em>live</em> in your interface, not your code editor. Therefore make it painless to leave your code editor and come back home to your interface.</p>
+<p>In Shadershop, I wrote a <a href="https://github.com/cdglabs/Shadershop/blob/85daea0f05a6f9b5d85c07e7f6dd7340ae8ab56f/src/model/C.coffee">naive object graph serializer</a> that creates a JSON representation of my program state. Any time I successfully render the interface I save the program representation to <code>localStorage</code>. So when I&#x2019;m working on a new feature or fixing a bug, I can refresh the browser but not have to rebuild the thing I&#x2019;m using to test the feature. I don&#x2019;t save when the interface fails to render, and this usually prevents the saved program representation from getting into an inconsistent state.</p>
+<h2 id="implementation-of-the-interface">Implementation of the Interface</h2>
+<p>All the DOM is rendered with <a href="http://facebook.github.io/react/">React</a>. I don&#x2019;t use React&#x2019;s &#x201C;state&#x201D; at all, just &#x201C;props&#x201D;. Nor do I track what state is &#x201C;dirty&#x201D; and needs rerendering. I just <a href="https://github.com/cdglabs/Shadershop/blob/85daea0f05a6f9b5d85c07e7f6dd7340ae8ab56f/src/main.coffee#L78-L90">rerender everything after every mouse and keyboard event</a>. I like this because I can think of rendering as a pure function from my program representation to HTML and <em>I don&#x2019;t need to do any bookkeeping</em> about what needs updating when. I try to banish all &#x201C;computer-y&#x201D; considerations (e.g. bookkeeping) from my thought space so that I can focus <em>all of my attention</em> on exploring interface possibilities.</p>
+<p>Interactive components are generally easy to express in React if they are self-contained. For example, to implement sliders, <a href="https://github.com/cdglabs/Shadershop/blob/85daea0f05a6f9b5d85c07e7f6dd7340ae8ab56f/src/view/PlotLayoutView.coffee#L385-L412">control points</a>, or <a href="https://github.com/cdglabs/Shadershop/blob/85daea0f05a6f9b5d85c07e7f6dd7340ae8ab56f/src/view/ui/TextFieldView.coffee">text fields</a>, the pattern consists of passing in a <code>value</code> property as well as an <code>onChange(newValue)</code> callback which is responsible for doing whatever is necessary to make <code>value</code> equal to <code>newValue</code>. This <code>onChange</code> responsibility may be more or less involved, but the component is encapsulated from this logic.</p>
+<p>However, it is tedious and sometimes a challenge to implement interactions which are not self-contained. For example, dragging something from one place to another requires global coordination. In particular, I felt that implementing the live reorderable outline view was harder than it needed to be. If you are a framework designer, this is a problem that needs to be solved!</p>
+<p>[Reorderable Outline GFY]</p>
+<p>The cartesian graphs and color maps are rendered with WebGL. I have a <a href="https://github.com/cdglabs/Shadershop/blob/85daea0f05a6f9b5d85c07e7f6dd7340ae8ab56f/src/Compiler.coffee">compiler</a> that takes any Function from my program representation and turns it into a string of GLSL code. I try not to think about performance but I had to do some optimizations here in order to make dragging feel smooth.</p>
+<p>You can only have so many WebGL canvases on the page before the browser complains, so I cheat with <a href="https://github.com/cdglabs/Shadershop/blob/85daea0f05a6f9b5d85c07e7f6dd7340ae8ab56f/src/view/ShaderOverlayView.coffee">one canvas overlayed full screen</a> and then have a <a href="https://github.com/cdglabs/Shadershop/blob/85daea0f05a6f9b5d85c07e7f6dd7340ae8ab56f/src/view/AppRootView.coffee#L5-L12">render step</a> where I find rectangles that need to have something drawn and draw appropriately.</p>
+<h2 id="graphic-design">Graphic Design</h2>
+<p>I&#x2019;m not a great graphic designer but I think I get it good enough so that it doesn&#x2019;t distract.</p>
+<p>The graphic design needs to help the eye organize the information <em>without drawing attention away from the content</em>. This implies using subtle colors&#x2014;only high enough contrast for the task, but no higher&#x2014;see for example the grid lines on the graph.</p>
+<p><img src="screenshot.png" class="FullScreenImage"></p>
+<p>The same goes for borders, shadows, and gradients. They&#x2019;re just there to help the eye parse the interface, in this case to distinguish between the &#x201C;content&#x201D; data and interface &#x201C;chrome&#x201D;, but they should not draw attention to themselves. Indeed, borders should be eliminated wherever possible. They are a lazy way to organize information.</p>
+<p><a href="http://www.edwardtufte.com/tufte/">Edward Tufte&#x2019;s books</a> are well worth reading to see examples of great visual design and analysis of why it works.</p>
+<p>Also, take an architecture studio class if you have the opportunity&#x2014;you&#x2019;ll learn the subtle tricks that make a drawing &#x201C;pop&#x201D;.</p>
+<p>I use a CSS preprocessor to let me use variables in my CSS. This is important to keep the spacing sizes, colors, etc. consistent. The eye is drawn to elements that <em>break</em> the pattern, so having inconsistent spacing will distract the eye unnecessarily.</p>
+<p>It has helped me immensely to have my CSS auto-update without having to refresh the page so that I can tweak the styles with a much tighter feedback loop.</p>
+<h2 id="bootstrapping">Bootstrapping</h2>
+<p>The point of creating these interfaces is to tighten the feedback loop between the creator&#x2019;s mental model and the compuational artifact. Tighter both in terms of response time (continuous feedback versus turn-based feedback) and &#x201C;cognitive distance&#x201D; (spatial manipulation for spatial domains). <a href="https://vimeo.com/36579366">Give the creator a direct connection to the work</a>.</p>
+<p>The computer&#x2019;s job is to <em>support</em> the creative process. It should handle all the tedium so that the human creator can focus entirely on exploring creative possibilities. It should automatically &#x201C;translate&#x201D; all data into representations cognitively suitable for the task.</p>
+<p>Similarly, it&#x2019;s important for us to embody these values during the design and development of these interfaces. By saving the program representation instead of destroying the world when we &#x201C;recompile&#x201D;, we eliminate tedium from our own workflow and encourage creative exploration. By forgoing a text representation, we can more quickly escape our code editor and begin exploring new interaction possibilities.</p>
+<p>The human and the computer each bring their own unique strengths to the collaboration. We must allow the computer to take responsibility for the tasks it is uniquely suited to, while allowing ourselves to take responsibility for the tasks we are uniquely suited to.</p>
+</div>
+
+
+<div class="Footer">
+<a href="/">Toby Schachman</a>
+<a href="mailto:tqs@alum.mit.edu"><i class="icon ion-android-mail"></i> tqs@alum.mit.edu</a>
+<a href="https://twitter.com/mandy3284"><i class="icon ion-social-twitter"></i> mandy3284</a>
+</div>
+
+<script src="/assets/page.js"></script>
+
+</body>
+</html>
