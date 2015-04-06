@@ -1,0 +1,105 @@
+<style>
+html, body {margin: 0;}
+canvas {background-color: #eed;}
+p {margin: 1em 2em; width: 600px;}
+</style>
+
+<canvas width="600" height="600"></canvas>
+
+<p>Here is a solution to finding a circle that circumscribes any number of points. View the source of this page for annotated code.</p>
+
+<script src="numeric-1.2.6.js"></script>
+<script>
+
+var canvasEl = document.querySelector("canvas");
+var ctx = canvasEl.getContext("2d");
+
+
+var points = [
+  [Math.random()*400+100, Math.random()*400+100],
+  [Math.random()*400+100, Math.random()*400+100],
+  [Math.random()*400+100, Math.random()*400+100],
+  [Math.random()*400+100, Math.random()*400+100],
+  [Math.random()*400+100, Math.random()*400+100],
+  [Math.random()*400+100, Math.random()*400+100]
+];
+
+
+// Here's the *objective function*, the function that we're trying to
+// minimize. It takes as input an array of numbers. These numbers are the
+// *degrees of freedom*. In this case it takes two numbers which determine the
+// center of the circumscribing circle. It outputs the radius (squared) of the
+// circle that encloses all the points. This is computed simply by taking the
+// maximum of the distances (squared) from the center to each point.
+function objective(args) {
+  var x = args[0];
+  var y = args[1];
+
+  // Cool word: quadrance = distance squared.
+  var maxQuadrance = 0;
+  points.forEach(function (point) {
+    var dx = point[0] - x;
+    var dy = point[1] - y;
+    var quadrance = dx*dx + dy*dy;
+    maxQuadrance = Math.max(maxQuadrance, quadrance);
+  });
+
+  // Note: minimization algorithms generally want objective functions that
+  // look sort of like paraboloids. This gives them the information they need
+  // to quickly find the bottom of the hilly terrain. So we return the radius
+  // squared rather than the radius.
+  return maxQuadrance;
+}
+
+function render() {
+  // This is the initial "guess" that we feed into the uncmin algorithm.
+  var initialArgs = [300, 300];
+
+  // Here we call uncmin. We pass in our objective function and our initial
+  // guess.
+  var solution = numeric.uncmin(objective, initialArgs).solution;
+
+  var x = solution[0];
+  var y = solution[1];
+  var radius = Math.sqrt(objective(solution));
+
+  // Reset the canvas
+  ctx.clearRect(0, 0, 600, 600);
+
+  // Draw the solution circle
+  circlePath(ctx, x, y, radius);
+  ctx.strokeStyle = "#f00";
+  ctx.lineWidth = 2;
+  ctx.stroke();
+
+  // Draw the points
+  points.forEach(function (point) {
+    circlePath(ctx, point[0], point[1], 4);
+    ctx.fillStyle = "#000";
+    ctx.fill()
+  });
+}
+
+// Helper to draw circles
+function circlePath(ctx, x, y, radius) {
+  ctx.beginPath();
+  ctx.arc(x, y, radius, 0, 2 * Math.PI, false);
+  ctx.closePath();
+}
+
+render();
+
+// Just to make things more interesting, we move around the points with the
+// mouse.
+canvasEl.addEventListener("mousemove", function (e) {
+  points[0] = [e.clientX, e.clientY];
+  render();
+});
+canvasEl.addEventListener("mousedown", function (e) {
+  // Cycle the points so the mouse controls a different point.
+  points.push(points.shift());
+  render();
+});
+
+
+</script>

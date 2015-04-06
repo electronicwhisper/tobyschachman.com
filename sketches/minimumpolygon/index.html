@@ -1,0 +1,181 @@
+<style>
+html, body {margin: 0; font-family: lucida grande; line-height: 1.5; color: #333;}
+canvas {background-color: #eed;}
+p {margin: 1em 2em; width: 600px;}
+</style>
+
+<canvas width="600" height="600"></canvas>
+
+<p><button id="add">Add Point</button></p>
+<p><button id="remove">Remove Point</button></p>
+
+<p><img src="tweet.png"></p>
+
+<p>Problems like this often come up when making "UI toys" (which is how it came up for Andy, according to the tweet stream). Although finding an analytical solution is an interesting math problem, really the goal is just to get an implementation working, so Andy can see it on a screen and "feel it out".</p>
+
+<p>In these situations, instead of writing pages of math searching for a closed form solution, I find this alternative strategy super helpful: just <em>get the computer to solve it for you</em>. Since you can formulate this as a <em>minimization problem</em>, you can ask the computer to use numerical methods to find you a minimum.</p>
+
+<p>To do this you just need to write a function (called an <em>objective</em>) that takes some number parameters (the <em>degrees of freedom</em> of the problem) and returns a number (to minimize). In this case, the inputs are the center x and y of the polygon and the angle that the polygon is rotated, and the output is the radius of the polygon that encloses all the points.</p>
+
+<p>Then, you hand off your objective function and an initial guess to a minimization algorithm. That algorithm then employs some form of gradient descent to iteratively perturb the initial guess until it finds the minimum. The choice of minimization algorithm isn't too important. I use <a href="http://numericjs.com/">numeric.js</a>'s <code>uncmin</code> which I think is a JS version of some Fortran algorithm from the 80s.</p>
+
+<p>Note that this is generally super fast on modern computers.</p>
+
+<p>For more details, please first see my solution (with annotated code) to the simpler problem of <a href="circle.html">finding a circumscribing circle</a>. Then check the source code for this page.</p>
+
+<p>The n-gon requires some extra trigonometry, which is a bit challenging but totally tractable, unlike figuring out a full analytical solution to the problem. This is left as an exercise for the reader, but here is the figure I used (the letters are referenced in the source code for this page).</p>
+
+<p><img src="figure.jpg"></p>
+
+<p>The polygon is a little bit trickier than the circle because you can get stuck in a <em>local minimum</em> if a corner gets "stuck". Gradient descent algorithms only find a local minimum, not the global minimum. They "roll down the hill" until they find a flat part, but there may be even lower flat parts in areas of the parameter space that they never got around to exploring. For the circle, there is only one local minimum, the global minimum, so the algorithm always finds this without a hitch. But since the polygon problem has local minima, I run the minimization algorithm 20 times with random initial guesses and take the best result. This seems to work, but could be adjusted depending on the tradeoffs of the application.</p>
+
+<script src="numeric-1.2.6.js"></script>
+<script>
+
+var TAU = 2 * Math.PI;
+
+var canvasEl = document.querySelector("canvas");
+var ctx = canvasEl.getContext("2d");
+
+
+var points = [
+  [Math.random()*400+100, Math.random()*400+100],
+  [Math.random()*400+100, Math.random()*400+100],
+  [Math.random()*400+100, Math.random()*400+100],
+  [Math.random()*400+100, Math.random()*400+100],
+  [Math.random()*400+100, Math.random()*400+100],
+  [Math.random()*400+100, Math.random()*400+100]
+];
+
+// You can get stuck in local minima, so we'll run the minimizer several times
+// and take the best result.
+var solveAttempts = 20;
+
+// Things seem to work better when all the arguments are in the same order of
+// magnitude. Since the center is specified in the hundreds of pixels, I'm
+// multiplying the angle (in radians) by 100 to put it in the same ballpark.
+// Sorry I don't have a better explanation of this, I found it out by trial
+// and error :(
+var arbitraryAngleMultiplier = 100;
+
+
+// Here's the *objective function*, the function that we're trying to
+// minimize. It takes as input an array of numbers. These numbers are the
+// *degrees of freedom*. In this case it takes three numbers: the first two
+// are the center of the circumscribing polygon and the third is the angle
+// that it's rotated. It outputs the radius (squared) of the smallest polygon
+// that encloses all the points. This is computed by iterating over each point
+// and using some trigonometry to figure out how big each point forces the
+// polygon to be. See figure in the explanation.
+function objective(args) {
+  var x = args[0];
+  var y = args[1];
+  var angle = args[2]/arbitraryAngleMultiplier;
+
+  var n = points.length;
+
+  var A = (TAU/2 - TAU/n) / 2;
+
+  // Cool word: quadrance = distance squared.
+  var maxQuadrance = 0;
+  points.forEach(function (point) {
+    var dx = point[0] - x;
+    var dy = point[1] - y;
+    var theta = Math.atan2(dy, dx) - angle;
+
+    var a = Math.sqrt(dx*dx + dy*dy);
+    var B = theta - Math.floor(theta * n/TAU) * TAU/n;
+    var C = TAU/2 - A - B;
+
+    var c = Math.sin(C) * a / Math.sin(A);
+
+    maxQuadrance = Math.max(maxQuadrance, c*c);
+  });
+
+  return maxQuadrance;
+}
+
+function solve() {
+  // This is the initial "guess" that we feed into the uncmin algorithm.
+  var initialArgs = [Math.random()*600, Math.random()*600, Math.random()*TAU*arbitraryAngleMultiplier];
+
+  // Here we call uncmin. We pass in our objective function and our initial
+  // guess.
+  var solution = numeric.uncmin(objective, initialArgs).solution;
+
+  var x = solution[0];
+  var y = solution[1];
+  var angle = solution[2]/arbitraryAngleMultiplier;
+  var radius = Math.sqrt(objective(solution));
+
+  return {x:x, y:y, angle:angle, radius:radius};
+}
+
+function render() {
+  var bestSolution = solve();
+  for (var i = 0; i < solveAttempts; i++) {
+    solution = solve();
+    if (solution.radius < bestSolution.radius) {
+      bestSolution = solution;
+    }
+  }
+
+  var x = bestSolution.x;
+  var y = bestSolution.y;
+  var angle = bestSolution.angle;
+  var radius = bestSolution.radius;
+
+  // Reset the canvas
+  ctx.clearRect(0, 0, 600, 600);
+
+  // Draw the solution polygon
+  ctx.beginPath();
+  var n = points.length;
+  for (var i = 0; i < n; i++) {
+    var theta = i * TAU/n + angle;
+    ctx.lineTo(x + radius * Math.cos(theta), y + radius * Math.sin(theta));
+  }
+  ctx.closePath();
+  ctx.strokeStyle = "#f00";
+  ctx.lineWidth = 2;
+  ctx.stroke();
+
+  // Draw the points
+  points.forEach(function (point) {
+    circlePath(ctx, point[0], point[1], 4);
+    ctx.fillStyle = "#000";
+    ctx.fill()
+  });
+}
+
+// Helper to draw circles
+function circlePath(ctx, x, y, radius) {
+  ctx.beginPath();
+  ctx.arc(x, y, radius, 0, 2 * Math.PI, false);
+  ctx.closePath();
+}
+
+render();
+
+// Just to make things more interesting, we move around the points with the
+// mouse.
+canvasEl.addEventListener("mousemove", function (e) {
+  points[0] = [e.clientX, e.clientY];
+  render();
+});
+canvasEl.addEventListener("mousedown", function (e) {
+  // Cycle the points so the mouse controls a different point.
+  points.push(points.shift());
+  render();
+});
+
+document.querySelector("#add").addEventListener("click", function () {
+  points.unshift([Math.random()*400+100, Math.random()*400+100]);
+  render();
+});
+document.querySelector("#remove").addEventListener("click", function () {
+  points.shift();
+  render();
+});
+
+</script>
