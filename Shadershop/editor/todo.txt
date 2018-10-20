@@ -1,0 +1,103 @@
+Changes to presentation
+  Have a small explainer on composition and ordering
+    Show Compose Sine Fract and Compose Fract Sine
+  Maybe have a slide showing overview of the noise function construction process steps (i.e. custom functions)
+    Random, Step Random, Noise, Fractal Noise
+
+
+
+Changes to system
+  Rotate modifier
+  Snap on/off modifier
+  When you create a new fn, give it the plot of the currently editing fn
+
+
+
+
+
+
+
+Architecture
+  Move "builtIn" into its own file.
+  Move "combiners" into their own thing. Think of better name.
+
+
+Misc
+  Figure out how React context works
+  Do something better than util.safeInv
+  Tune mousewheel zooming
+  Delete key
+  Undo
+  Duplicate
+  Check that you don't create dependency loops
+  Need to listen for scroll events on Scrollers and refresh
+
+Dirty system
+  Should have a thing for keeping track of whether certain things might be dirty, ala the Compiler.
+
+
+
+
+
+
+Plot
+  Better "settings" controls
+  Clean up hard coded stuff in plot layout
+  ColorMap needs to be dimensionally generic
+
+
+
+
+
+Outline Stuff
+  Create definition button / right click item - create by abstracting
+  Show transform numbers when they're not identity?
+
+
+Inspector
+  Highlight transform numbers when hovering the control point
+  Show transform numbers next to control point
+  Scrub transform numbers in inspector?
+
+
+Palette
+  Insert button
+  Anything can be dragged into the outline to put it in a specific place
+  Maybe
+    + insert buttons in outline like before
+  Some way to delete definitions
+
+
+
+
+
+
+
+
+
+Nice to have
+  flexible color scale for colorMap
+
+  rotate/scale modifier when dragging transform points
+
+  performance
+    send in selectedChildFn transforms as uniforms into shaders to make dragging control points faster
+
+  highlight hovered/active transform variables
+
+  spread based on the hovered transform point/variable(s)
+
+  maybe a hover in "window" view for colorMap
+
+  look into changing data model / API for childFn to make control point code less ugly
+
+
+
+
+
+
+
+
+
+
+

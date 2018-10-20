@@ -1,0 +1,494 @@
+HighlightColor = #09c
+SliceColor = #0c9
+PlotBackgroundColor = #FAF8F2
+
+LeftSidebarWidth = 180px
+RightSidebarWidth = 270px
+InspectorHeight = 266px
+
+HeaderSize = 18px
+
+PlusButtonSize = 18px
+
+DisclosureTriangleSize = 12px
+SpacingSize = 6px
+OutlineThumbnailSize = 36px
+PaletteThumbnailSize = 48px
+
+PointControlSize = 12px
+LineControlSize = 2px
+
+ShaderOverlayZIndex = 10
+PlotControlZIndex = 20
+SymbolicZIndex = 30
+
+
+
+
+
+inline(va)
+  display inline-block
+  vertical-align va
+
+shadow(size, opacity)
+  box-shadow 0px size 2*size rgba(0, 0, 0, opacity)
+
+
+// ============================================================================
+// Generic
+// ============================================================================
+
+html, body
+  margin 0
+
+[contenteditable]:active, [contenteditable]:focus, button:active, button:focus
+  outline none
+
+[contenteditable]
+  cursor text
+
+body
+  font-family "Lucida Sans Unicode", "Lucida Grande", sans-serif
+  font-size 12px
+  cursor default
+  overflow hidden
+  color #333
+
+canvas, .Shader
+  position absolute
+  top 0
+  left 0
+  width 100%
+  height 100%
+  z-index 15
+
+
+// Kill scrollbars in webkit...
+// ::-webkit-scrollbar {
+//     width: 0px;
+//     height: 0px;
+// }
+
+
+
+
+
+
+// ============================================================================
+// Main Layout
+// ============================================================================
+
+.ShaderOverlay
+  z-index ShaderOverlayZIndex
+  pointer-events none
+
+.PlotLayout
+  position absolute
+  top 0px
+  left LeftSidebarWidth
+  bottom 0px
+  right RightSidebarWidth
+  border-left 1px solid #e6e6e6
+  border-right 1px solid #e6e6e6
+  background-color #eee
+  box-sizing border-box
+
+.Palette
+  position absolute
+  left 0px
+  width LeftSidebarWidth
+  top 0px
+  bottom 0px
+
+.Outline
+  position absolute
+  right 0px
+  width RightSidebarWidth
+  top 0px
+  bottom InspectorHeight
+
+.Inspector
+  position absolute
+  right 0px
+  width RightSidebarWidth
+  height InspectorHeight
+  bottom 0px
+
+.Symbolic
+  position absolute
+  bottom 90px
+  left LeftSidebarWidth
+  right RightSidebarWidth
+  z-index SymbolicZIndex
+
+
+// ============================================================================
+// Dragging
+// ============================================================================
+
+.DraggingObject
+  position: fixed
+  z-index: 100;
+  pointer-events: none;
+  opacity 0.5
+  box-shadow: 0px 2px 6px rgba(0,0,0,0.5);
+
+.DraggingOverlay
+  position: fixed
+  top: 0; left: 0; bottom: 0; right: 0;
+  z-index: 200
+
+
+// ============================================================================
+// Common
+// ============================================================================
+
+.Header
+  position absolute
+  width 100%
+  top 0px
+  height HeaderSize
+  box-sizing border-box
+  line-height HeaderSize - 2
+  text-align center
+  color #666
+  text-shadow 0px 1px 0px rgba(255,255,255,0.5)
+  background-color #eee
+  background-image linear-gradient(to bottom, #fff, #ddd)
+  border-top 1px solid #e6e6e6
+  border-bottom 1px solid #d3d3d3
+
+.Scroller
+  position absolute
+  width 100%
+  top HeaderSize
+  bottom 0px
+  overflow-y auto
+  overflow-x hidden
+
+.Label
+  // Give text editing cursor some room
+  min-width 30px
+  padding-right 10px
+  &:empty:not(:active):not(:focus):before
+    content "Untitled Function"
+    font-style italic
+    color #ccc
+
+
+// ============================================================================
+// Palette
+// ============================================================================
+
+.Definition
+  white-space nowrap
+
+  // &.Hovered
+  &:hover
+    background-color tint(HighlightColor, 95%)
+
+  .PlotContainer
+    inline middle
+    position relative
+    width PaletteThumbnailSize
+    height PaletteThumbnailSize
+    border 1px solid #eee
+    margin SpacingSize SpacingSize
+
+  &.Selected
+    .PlotContainer
+      outline 1px solid HighlightColor
+      shadow 1px 0.5
+
+  .Label
+    inline middle
+    // margin-left SpacingSize
+
+.DragHint
+  position fixed
+  z-index SymbolicZIndex
+  pointer-events none
+  margin-left SpacingSize
+  margin-top SpacingSize * -2
+  white-space nowrap
+  padding SpacingSize
+  border-radius SpacingSize
+  background-color #333
+  color #eee
+  opacity 0
+  transition opacity 0.2s
+
+.PaletteHeader
+  // padding-left SpacingSize*2 + PaletteThumbnailSize
+  padding SpacingSize 0 SpacingSize SpacingSize*2
+  background-color #f3f3f3
+  // text-align center
+  &:not(:first-child)
+    margin-top SpacingSize*2
+
+
+.AddDefinition
+  margin SpacingSize 0px
+  padding SpacingSize
+  // width PaletteThumbnailSize
+  text-align center
+
+
+// ============================================================================
+// Plot Layout
+// ============================================================================
+
+.PlotLocation
+  position absolute
+
+.PlotContainer
+  position absolute
+  top 0
+  left 0
+  width 100%
+  height 100%
+  background-color PlotBackgroundColor
+  overflow hidden
+
+.PointControlContainer
+  position absolute
+  top 50%
+  left 50%
+  width 100%
+  height 100%
+
+.PointControl
+  position absolute
+  width PointControlSize
+  height PointControlSize
+  margin-left -0.5 * PointControlSize
+  margin-top -0.5 * PointControlSize
+  border-radius 0.5 * PointControlSize
+  background-color HighlightColor
+  opacity 0.25
+  z-index PlotControlZIndex
+  &:hover
+    opacity 1
+
+.LineControl
+  position absolute
+  background-color SliceColor
+  z-index PlotControlZIndex
+  opacity 0.5
+  width LineControlSize
+  height LineControlSize
+  margin LineControlSize * -0.5
+  &:hover
+    opacity 1
+  &:before
+    content " "
+    position absolute
+    width 100%
+    height 100%
+    padding 10px
+    margin -10px
+
+.SettingsButton
+  position absolute
+  top SpacingSize*2
+  right SpacingSize*2
+  z-index PlotControlZIndex
+  font-size 20px
+  color tint(HighlightColor, 50%)
+  text-shadow 0px 1px 3px rgba(0,0,0,0.5)
+  cursor pointer
+  opacity 0.5
+  &:hover
+    opacity 1
+
+
+// ============================================================================
+// Outline
+// ============================================================================
+
+.OutlineCombinerToolbar
+  padding SpacingSize 0 SpacingSize SpacingSize*2
+  background-color #f3f3f3
+  .OutlineCombinerButton
+    padding-right SpacingSize
+    border-right 1px solid #ccc
+    margin-right SpacingSize
+    cursor pointer
+    &:hover
+      color HighlightColor
+    &:last-child
+      border-right 0
+
+.Outline .Scroller > .OutlineChildren
+  margin-left 0px
+
+.OutlineItem
+  &.Invisible
+    opacity 0.25
+
+.OutlineRow
+  position relative
+  white-space nowrap
+  &.Hovered
+    background-color tint(HighlightColor, 95%)
+  &.Selected
+    background-color tint(HighlightColor, 85%)
+
+.OutlineVisible
+  position absolute
+  right SpacingSize
+  line-height OutlineThumbnailSize + SpacingSize
+  font-size 18px
+  color #bbb
+  opacity 0
+  &:hover
+    color HighlightColor
+.OutlineRow:hover
+  .OutlineVisible
+    opacity 1
+
+.OutlineChildren
+  margin-left DisclosureTriangleSize + SpacingSize*2
+
+.OutlineDisclosure
+  inline middle
+  padding SpacingSize
+
+.OutlineInternals
+  inline middle
+  margin 3px 6px
+  .Label
+    inline middle
+
+.OutlineThumbnail
+  position relative
+  inline middle
+  width OutlineThumbnailSize
+  height OutlineThumbnailSize
+  margin 2px
+  border 1px solid #eee
+
+.Placeholder
+  background-color #bbb
+  box-shadow inset 0px 1px 3px rgba(0,0,0,0.5)
+
+.DisclosureTriangle
+  width 0
+  height 0
+  margin 0px 0.067*DisclosureTriangleSize
+  border-top: 0.5*DisclosureTriangleSize solid transparent
+  border-bottom: 0.5*DisclosureTriangleSize solid transparent
+  border-left: 0.866*DisclosureTriangleSize solid #ddd
+  transition -webkit-transform 0.05s
+  &.Expanded
+    -webkit-transform: rotate(90deg)
+  &.Hidden
+    // visibility hidden
+    display none
+
+
+// ============================================================================
+// Inspector
+// ============================================================================
+
+table
+  border-collapse collapse
+  width 100%
+
+td, th
+  width 54px
+
+tr
+  td:first-child, th:first-child
+    width 24px
+    color #333
+    text-align center
+  td:last-child, th:last-child
+    width auto
+
+th
+  background-color #f3f3f3
+
+.Translate
+  td
+    // background-color #f3f3f3
+    border-bottom 1px solid #eee
+
+.Variable, th
+  padding 2px 6px
+  text-align left
+
+
+// ============================================================================
+// Symbolic View
+// ============================================================================
+
+.Symbolic
+  text-align center
+  font-size 24px
+  margin 0px 10px
+  border-radius 8px
+  padding 0px 4px
+  line-height 36px
+  background-color rgba(255,255,255,0.8)
+
+.SymbolVector, .SymbolMatrix
+  display inline-table
+  position relative
+  border-collapse collapse
+
+.SymbolVector
+  top -2px
+
+.SymbolMatrix
+  top: -10px
+  height 36px
+
+
+.SymbolRow
+  display table-row
+  > .SymbolCell
+    font-size 12px
+
+.SymbolCell
+  display table-cell
+  padding 3px
+  font-size 16px
+  line-height 1
+  background-color rgba(0,0,0,0.2)
+
+
+// ============================================================================
+// Buttons
+// ============================================================================
+
+.TextButton
+  cursor pointer
+  font-size 10px
+  &:hover
+    color HighlightColor
+
+.AddButton
+  width PlusButtonSize
+  height PlusButtonSize
+  padding 0
+  line-height PlusButtonSize
+  font-size 9px
+  color #777
+  font-family verdana
+  font-weight bold
+  text-shadow 0 1px 0 rgba(255,255,255,0.5)
+  background-color #ddd
+  background-image linear-gradient(to bottom, #eee, #ccc)
+  box-shadow 0 2px 1px rgba(0,0,0,0.16), 0 0 1px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.55)
+  border-radius 20px
+  border 0px
+  &:before
+    content "+"
+  &:hover
+    background-image linear-gradient(to bottom, #f3f3f3, #d3d3d3)
+  &:active
+    background-image linear-gradient(to bottom, #cacaca, #d5d5d5)
+    box-shadow 0 1px 1px rgba(255,255,255,0.35), inset 0 0 1px rgba(0,0,0,0.5), inset 0 1px 4px rgba(0,0,0,0.4)
+
+

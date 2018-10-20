@@ -1,0 +1,54 @@
+{
+  "name": "shadershopfont",
+  "css_prefix_text": "icon-",
+  "css_use_suffix": false,
+  "hinting": true,
+  "units_per_em": 1000,
+  "ascent": 850,
+  "glyphs": [
+    {
+      "uid": "2f3eb471d2b39d426c77883361c465df",
+      "css": "eye",
+      "code": 59392,
+      "src": "custom_icons",
+      "selected": true,
+      "svg": {
+        "path": "M500 166.7C169.3 166.7-0.5 500-0.5 500-0.5 500 127.6 833.3 500 833.3 837.2 833.3 1000.5 501.3 1000.5 501.3 1000.5 501.3 835.9 166.7 500 166.7L500 166.7ZM500.8 708.3C379.8 708.3 292.4 617.2 292.4 500 292.4 382.8 379.8 291.7 500.8 291.7 621.7 291.7 709.1 382.8 709.1 500 709.1 617.2 621.7 708.3 500.8 708.3L500.8 708.3ZM500.8 416.7C454.7 416.8 417.4 455.4 417.4 500 417.4 544.6 454.7 583.3 500.8 583.3 546.8 583.3 584.1 544.6 584.1 500 584.1 455.3 546.8 416.6 500.8 416.7L500.8 416.7Z",
+        "width": 1000
+      },
+      "search": [
+        "eye"
+      ]
+    },
+    {
+      "uid": "d35a1d35efeb784d1dc9ac18b9b6c2b6",
+      "css": "pencil",
+      "code": 59393,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "b013f6403e5ab0326614e68d1850fd6b",
+      "css": "resize-full-alt",
+      "code": 59396,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "6605ee6441bf499ffa3c63d3c7409471",
+      "css": "move",
+      "code": 59397,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "97bd5542ed3e143d2ee9b60e14487615",
+      "css": "list-add",
+      "code": 59394,
+      "src": "entypo"
+    },
+    {
+      "uid": "fc94b92194752796654c96c7b7dccebb",
+      "css": "cog",
+      "code": 59395,
+      "src": "iconic"
+    }
+  ]
+}
